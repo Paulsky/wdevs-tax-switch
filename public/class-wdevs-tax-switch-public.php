@@ -217,15 +217,13 @@ class Wdevs_Tax_Switch_Public {
 			? WC()->countries->ex_tax_or_vat()
 			: WC()->countries->inc_tax_or_vat();
 
-		add_filter($opposite_filter, [$this, $opposite_callback], PHP_INT_MAX, 1);
 		//Re-enable this filter and function
-
-		$shop_prices_include_tax = $this->shop_displays_price_including_tax_by_default();
+		add_filter($opposite_filter, [$this, $opposite_callback], PHP_INT_MAX, 1);
 
 		return $this->combine_price_displays(
 			$text,
 			$opposite_label,
-			($type === 'inc') ? $shop_prices_include_tax : !$shop_prices_include_tax
+			($type === 'inc')
 		);
 	}
 
