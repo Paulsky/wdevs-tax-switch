@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to the Tax Switch for WooCommerce plugin will be documented in this file.
 
+## [1.6.12] - 2026-05-01
+### Updated
+- Fixed swapped VAT label classes
+
 ## [1.6.11] - 2026-03-13
 ### Updated
 - Improved compatibility between Tiered Pricing Table and FiboFilters for dynamically loaded prices
