@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to the Tax Switch for WooCommerce plugin will be documented in this file.
 
+## [1.6.13] - 2026-05-23
+### Updated
+- Tested WordPress 7.0
+- Tested WooCommerce 10.7.0
+
 ## [1.6.12] - 2026-05-01
 ### Updated
 - Fixed swapped VAT label classes

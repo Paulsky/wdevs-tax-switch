@@ -1,6 +1,6 @@
 {
 	"name": "wdevs-tax-switch",
-	"version": "1.6.12",
+	"version": "1.6.13",
 	"description": "Let customers toggle between inclusive and exclusive VAT pricing in your WooCommerce store.",
 	"author": "Wijnberg Developments",
 	"license": "GPL-2.0-or-later",
