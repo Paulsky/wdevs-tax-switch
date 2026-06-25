@@ -3,6 +3,15 @@ import SwitchComponent from './components/SwitchComponent';
 import TaxSwitchHelper from '../shared/TaxSwitchHelper';
 import ThirdPartyCompatibility from './includes/ThirdPartyCompatibility';
 import { onDomReady, shouldBeEnabled } from '../shared/utils/render';
+import { initTaxSwitchApi } from '../shared/api';
+
+const roots = new WeakMap();
+const getViewConfig = () =>
+	window.wtsViewObject || {
+		originalTaxDisplay: 'incl',
+	};
+
+initTaxSwitchApi( getViewConfig() );
 
 const renderSwitchComponent = ( element, ajaxConfig ) => {
 	const attributes = {
@@ -10,7 +19,11 @@ const renderSwitchComponent = ( element, ajaxConfig ) => {
 		...ajaxConfig,
 	};
 
-	const root = createRoot( element );
+	let root = roots.get( element );
+	if ( ! root ) {
+		root = createRoot( element );
+		roots.set( element, root );
+	}
 
 	root.render(
 		<Suspense fallback={ <div className="wp-block-placeholder" /> }>
@@ -22,6 +35,7 @@ const renderSwitchComponent = ( element, ajaxConfig ) => {
 let isInitialized = false;
 
 const initPage = ( viewConfig ) => {
+	initTaxSwitchApi( viewConfig );
 	TaxSwitchHelper.setPriceClasses( viewConfig.originalTaxDisplay );
 	if ( ! isInitialized ) {
 		ThirdPartyCompatibility.initialize( viewConfig.originalTaxDisplay );
@@ -30,6 +44,10 @@ const initPage = ( viewConfig ) => {
 };
 
 const renderElements = () => {
+	const viewConfig = getViewConfig();
+
+	initTaxSwitchApi( viewConfig );
+
 	if ( ! shouldBeEnabled() ) {
 		return;
 	}
@@ -37,10 +55,6 @@ const renderElements = () => {
 	const elements = document.querySelectorAll( '.wp-block-wdevs-tax-switch' );
 
 	if ( elements.length > 0 ) {
-		const viewConfig = window.wtsViewObject || {
-			originalTaxDisplay: 'incl',
-		};
-
 		initPage( viewConfig );
 
 		elements.forEach( ( element ) => {

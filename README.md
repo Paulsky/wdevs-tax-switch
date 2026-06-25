@@ -159,18 +159,59 @@ You can use these shortcodes with PHP with the do_shortcode() function:
 <?php echo do_shortcode('[wdevs_tax_switch_label]'); ?>
 ```
 
+#### JavaScript API
+
+Tax Switch provides a small frontend JavaScript API for custom integrations, such as buttons, preference popups, or other flows where visitors choose whether they want to see prices including or excluding VAT.
+
+```js
+if ( window.wdevsTaxSwitch && ! window.wdevsTaxSwitch.hasSavedChoice() ) {
+	window.wdevsTaxSwitch.setDisplay( 'incl', {
+		respectExistingChoice: true,
+	} );
+}
+```
+
+API methods:
+- `hasSavedChoice()`: returns whether the visitor already has a saved switch choice.
+- `getDisplay()`: returns the current display, either `'incl'` or `'excl'`.
+- `setDisplay( display, options )`: changes the display to `'incl'` or `'excl'`.
+- `toggle( options )`: toggles between inclusive and exclusive VAT display.
+
+Options:
+- `respectExistingChoice`: `boolean` - preserves an existing saved visitor choice.
+
+Set `respectExistingChoice` to `true` when you only want to apply a default if the visitor has not already made a saved choice.
+
+You can also request a display change by dispatching an event. This is useful when your integration is event-driven.
+
+```js
+document.dispatchEvent(
+	new CustomEvent( 'wdevs-tax-switch-context-changed', {
+		detail: {
+			display: 'incl',
+			respectExistingChoice: true,
+		},
+	} )
+);
+```
+
+Detail properties:
+- `display`: `'incl' | 'excl' | 'toggle'` - requested tax display.
+- `respectExistingChoice`: `boolean` - preserves an existing saved visitor choice.
+
 #### JavaScript events
 
-The switch fires a JavaScript event when the tax display is toggled. You can listen for this event to execute custom code when a user switches between inclusive and exclusive tax display. This is useful for when you need to perform additional actions based on the tax display state.
+The switch fires a JavaScript event when the tax display changes. You can listen for this event to execute custom code when a user switches between inclusive and exclusive tax display. This is useful for when you need to perform additional actions based on the tax display state.
 
+```js
+document.addEventListener( 'wdevs-tax-switch-changed', function( event ) {
+	console.log( event.detail );
+} );
 ```
-document.addEventListener('wdevs-tax-switch-changed', function(event) {
-    console.log(event.detail);
-	// event.detail contains:
-	// - isSwitched: boolean - the raw switch state
-	// - displayIncludingVat: boolean - whether prices now display including VAT
-});
-```
+
+Detail properties:
+- `isSwitched`: `boolean` - the raw switch state.
+- `displayIncludingVat`: `boolean` - whether prices now display including VAT.
 
 ### WPML
 

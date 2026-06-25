@@ -1,6 +1,14 @@
 import { createRoot, Suspense } from '@wordpress/element';
 import LabelComponent from './components/LabelComponent';
 import { onDomReady, shouldBeEnabled } from '../shared/utils/render';
+import { initTaxSwitchApi } from '../shared/api';
+
+const getViewConfig = () =>
+	window.wtsViewObject || {
+		originalTaxDisplay: 'incl',
+	};
+
+initTaxSwitchApi( getViewConfig() );
 
 const renderLabelComponent = ( element, ajaxConfig ) => {
 	const attributes = {
@@ -18,6 +26,10 @@ const renderLabelComponent = ( element, ajaxConfig ) => {
 };
 
 onDomReady( () => {
+	const viewConfig = getViewConfig();
+
+	initTaxSwitchApi( viewConfig );
+
 	if ( ! shouldBeEnabled() ) {
 		return;
 	}
@@ -27,10 +39,6 @@ onDomReady( () => {
 	);
 
 	if ( elements.length > 0 ) {
-		const viewConfig = window.wtsViewObject || {
-			originalTaxDisplay: 'incl',
-		};
-
 		elements.forEach( ( element ) => {
 			if ( element ) {
 				renderLabelComponent( element, viewConfig );

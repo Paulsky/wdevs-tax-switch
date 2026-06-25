@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to the Tax Switch for WooCommerce plugin will be documented in this file.
 
+## [1.7.0] - 2026-06-25
+### Updated
+- Improved product context detection for price calculations with custom tax classes
+- Improved React compatibility by reusing existing roots when dynamically rendering tax switches
+- Added a public JavaScript API that allows third-party scripts to read and change the tax display via `window.wdevsTaxSwitch` or the `wdevs-tax-switch-context-changed` event.
+
 ## [1.6.13] - 2026-05-23
 ### Updated
 - Tested WordPress 7.0

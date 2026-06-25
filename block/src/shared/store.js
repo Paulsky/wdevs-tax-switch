@@ -6,7 +6,7 @@ const SWITCH_TYPE = 'SET_IS_SWITCHED';
 const DISABLED_TYPE = 'SET_IS_DISABLED';
 
 const getInitialState = () => {
-	const storedValue = localStorage.getItem( STORAGE_KEY );
+	const storedValue = window.localStorage.getItem( STORAGE_KEY );
 	return {
 		isSwitched: storedValue ? JSON.parse( storedValue ) : false,
 		isDisabled: false,
@@ -21,7 +21,7 @@ const actions = {
 		};
 	},
 	saveIsSwitched( value ) {
-		localStorage.setItem( STORAGE_KEY, JSON.stringify( value ) );
+		window.localStorage.setItem( STORAGE_KEY, JSON.stringify( value ) );
 		return {
 			type: SWITCH_TYPE,
 			value,
@@ -79,6 +79,10 @@ export function getIsSwitched() {
 
 export function saveIsSwitched( value ) {
 	return dispatch( STORE_NAME ).saveIsSwitched( value );
+}
+
+export function switchedIsSaved() {
+	return window.localStorage.getItem( STORAGE_KEY ) !== null;
 }
 
 export function setIsSwitched( value ) {

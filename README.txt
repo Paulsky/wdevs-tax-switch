@@ -3,7 +3,7 @@ Contributors: wijnbergdevelopments
 Tags: woocommerce, tax, vat
 Requires at least: 5.0
 Tested up to: 7.0
-Stable tag: 1.6.13
+Stable tag: 1.7.0
 Requires PHP: 7.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -139,23 +139,64 @@ You can use these shortcodes with PHP with the do_shortcode() function:
 `<?php echo do_shortcode('[wdevs_tax_switch_label]'); ?>`
 
 
+= JavaScript API =
+
+Tax Switch provides a small frontend JavaScript API for custom integrations, such as buttons, preference popups, or other flows where visitors choose whether they want to see prices including or excluding VAT.
+
+`
+if ( window.wdevsTaxSwitch && ! window.wdevsTaxSwitch.hasSavedChoice() ) {
+	window.wdevsTaxSwitch.setDisplay( 'incl', {
+		respectExistingChoice: true,
+	} );
+}
+`
+
+API methods:
+* `hasSavedChoice()`: returns whether the visitor already has a saved switch choice.
+* `getDisplay()`: returns the current display, either `'incl'` or `'excl'`.
+* `setDisplay( display, options )`: changes the display to `'incl'` or `'excl'`.
+* `toggle( options )`: toggles between inclusive and exclusive VAT display.
+
+Options:
+* `respectExistingChoice`: `boolean` - preserves an existing saved visitor choice.
+
+Set `respectExistingChoice` to `true` when you only want to apply a default if the visitor has not already made a saved choice.
+
+You can also request a display change by dispatching an event. This is useful when your integration is event-driven.
+
+`
+document.dispatchEvent(
+	new CustomEvent( 'wdevs-tax-switch-context-changed', {
+		detail: {
+			display: 'incl',
+			respectExistingChoice: true,
+		},
+	} )
+);
+`
+
+Detail properties:
+* `display`: `'incl' | 'excl' | 'toggle'` - requested tax display.
+* `respectExistingChoice`: `boolean` - preserves an existing saved visitor choice.
+
 = JavaScript events =
 
-The switch fires a JavaScript event when the tax display is toggled. You can listen for this event to execute custom code when a user switches between inclusive and exclusive VAT display. This is useful for when you need to perform additional actions based on the tax display state.
+The switch fires a JavaScript event when the tax display changes. You can listen for this event to execute custom code when a user switches between inclusive and exclusive VAT display. This is useful for when you need to perform additional actions based on the tax display state.
 
 `
-document.addEventListener('wdevs-tax-switch-changed', function(event) {
-   console.log(event.detail);
-   // event.detail contains:
-   // - isSwitched: boolean - the raw switch state
-   // - displayIncludingVat: boolean - whether prices now display including VAT
- });
+document.addEventListener( 'wdevs-tax-switch-changed', function( event ) {
+	console.log( event.detail );
+} );
 `
+
+Detail properties:
+* `isSwitched`: `boolean` - the raw switch state.
+* `displayIncludingVat`: `boolean` - whether prices now display including VAT.
 
 If you are loading the switch dynamically (via AJAX), dispatch this event after rendering to initialize the component:
 
 `
-   document.dispatchEvent( new CustomEvent('wdevs-tax-switch-appeared') );
+document.dispatchEvent( new CustomEvent( 'wdevs-tax-switch-appeared' ) );
 `
 
 === WPML ===
@@ -209,7 +250,7 @@ The following plugins have been tested and confirmed compatible:
 * YITH WooCommerce Role Based Prices
 * WooCommerce Dynamic Pricing and Discount Rules
 * Price Based on Country for WooCommerce
-* WP Grid Builder
+* [WP Grid Builder](https://wordpress.org/support/topic/plugin-not-working-with-gridbuilder-on-archive-pages/)
 
 If you encounter any compatibility issues with other plugins or themes, please let us know. Your feedback helps us improve the plugin and extend compatibility to more third-party solutions.
 
@@ -246,6 +287,11 @@ The plugin is designed to keep prices consistent in the cart and checkout proces
 
 
 == Changelog ==
+= 1.7.0 =
+* Improved product context detection for price calculations with custom tax classes
+* Improved React compatibility by reusing existing roots when dynamically rendering tax switches
+* Added a public JavaScript API that allows third-party scripts to read and change the tax display via `window.wdevsTaxSwitch` or the `wdevs-tax-switch-context-changed` event.
+
 = 1.6.13 =
 * Tested WordPress 7.0
 * Tested WooCommerce 10.7.0

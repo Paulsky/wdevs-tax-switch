@@ -85,7 +85,7 @@ class Wdevs_Tax_Switch_Block_Label extends Wdevs_Tax_Switch_Block {
 			'label-text-color-checked' => '',
 		], $attributes );
 
-		$container_class_name = 'wp-block-wdevs-tax-switch-label'; //important for rendering JS
+		$container_class_name = 'wp-block-wdevs-tax-switch-label'; // Important for rendering JS.
 
 		return $this->render_shortcode_html( $attributes, $container_class_name, $content );
 	}
@@ -94,7 +94,7 @@ class Wdevs_Tax_Switch_Block_Label extends Wdevs_Tax_Switch_Block {
 	 * @since 1.5.0
 	 */
 	public function register_frontend_scripts() {
-		$script_asset = $this->register_script('wdevs-tax-switch-label-script', 'label', 'view');
+		$script_asset = $this->register_script('wdevs-tax-switch-label-view-script', 'label', 'view');
 
 		wp_register_style(
 			'wdevs-tax-switch-label-style',

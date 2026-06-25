@@ -384,7 +384,7 @@ trait Wdevs_Tax_Switch_Helper {
 	}
 
 	/**
-	 * Get the current product, handling AJAX variation requests
+	 * Get the current product, handling AJAX variation requests and product loop contexts.
 	 *
 	 * During AJAX variation requests, there is no global $post context,
 	 * so we need to manually retrieve the variation product using the
@@ -394,9 +394,15 @@ trait Wdevs_Tax_Switch_Helper {
 	 * @since 1.5.18
 	 */
 	public function get_current_product() {
-		$product = null;
+		$product           = null;
+		$post_product_id   = 0;
+		$is_variation_ajax = (
+			doing_action( 'wc_ajax_get_variation' ) ||
+			doing_action( 'wp_ajax_woocommerce_get_variation' ) ||
+			doing_action( 'wp_ajax_nopriv_woocommerce_get_variation' )
+		) && ! empty( $_POST['product_id'] );
 
-		if ( doing_action( 'wc_ajax_get_variation' ) && ! empty( $_POST['product_id'] ) ) {
+		if ( $is_variation_ajax ) {
 			$variable_product = wc_get_product( absint( $_POST['product_id'] ) );
 
 			if ( $variable_product ) {
@@ -407,11 +413,37 @@ trait Wdevs_Tax_Switch_Helper {
 					$product = wc_get_product( $variation_id );
 				}
 			}
+		}
 
+		if ( ! $product && ! $is_variation_ajax ) {
+			global $post;
+
+			if ( isset( $post, $post->ID ) && in_array( get_post_type( $post->ID ), [ 'product', 'product_variation' ], true ) ) {
+				$post_product_id = absint( $post->ID );
+				$product         = wc_get_product( $post );
+			}
+		}
+
+		if (
+			! $product &&
+			! $is_variation_ajax &&
+			isset( $GLOBALS['product'] ) &&
+			$GLOBALS['product'] instanceof WC_Product &&
+			( ! $post_product_id || $GLOBALS['product']->get_id() === $post_product_id )
+		) {
+			$product = $GLOBALS['product'];
 		}
 
 		if ( ! $product ) {
 			$product = wc_get_product();
+		}
+
+		if ( ! $product && ! $is_variation_ajax && is_product() ) {
+			$product_id = get_queried_object_id();
+
+			if ( $product_id && 'product' === get_post_type( $product_id ) ) {
+				$product = wc_get_product( $product_id );
+			}
 		}
 
 		/**
