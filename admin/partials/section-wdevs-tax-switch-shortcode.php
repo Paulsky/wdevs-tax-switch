@@ -134,7 +134,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 						<div class="wc-shipping-class-modal-input">
 							<div class="view">
-								<?php esc_html_e( 'Including VAT label', 'tax-switch-for-woocommerce' ); ?>
+								<?php esc_html_e( 'Including tax label', 'tax-switch-for-woocommerce' ); ?>
 							</div>
 							<div class="edit">
 								<input type="text" name="switch-label-incl" data-attribute="switch-label-incl"
@@ -144,7 +144,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 						<div class="wc-shipping-class-modal-input">
 							<div class="view">
-								<?php esc_html_e( 'Excluding VAT label', 'tax-switch-for-woocommerce' ); ?>
+								<?php esc_html_e( 'Excluding tax label', 'tax-switch-for-woocommerce' ); ?>
 							</div>
 							<div class="edit">
 								<input type="text" name="switch-label-excl" data-attribute="switch-label-excl"

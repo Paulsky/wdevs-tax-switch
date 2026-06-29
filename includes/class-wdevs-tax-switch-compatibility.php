@@ -121,16 +121,20 @@ class Wdevs_Tax_Switch_Compatibility {
 
 			// Product Extras for Woocommerce (Woocommerce Product Add-Ons Ultimate)
 			if ( $this->is_plugin_active( 'product-extras-for-woocommerce/product-extras-for-woocommerce.php' ) ) {
-				$pewc_handle = 'wdevs-tax-switch-product-extras-for-woocommerce';
-				$pewc_asset  = $this->enqueue_script( $pewc_handle, 'switch', 'product-extras-for-woocommerce', [ 'accounting' ] ); //'pewc-script',breaks things, but I wonder if that correct....
+				$pewc_handle        = 'wdevs-tax-switch-product-extras-for-woocommerce';
+				$pewc_asset         = $this->enqueue_script( $pewc_handle, 'switch', 'product-extras-for-woocommerce', [ 'accounting' ] ); //'pewc-script',breaks things, but I wonder if that correct....
+				$including_tax_text = $this->get_tax_text( true );
+				$excluding_tax_text = $this->get_alternate_tax_text( true );
 
 				wp_localize_script(
 					$pewc_handle,
 					'wtsCompatibilityObject',
 					[
-						'baseTaxRate'      => $tax_rate,
-						'includingVatText' => $this->get_vat_text( true ),
-						'excludingVatText' => $this->get_alternate_vat_text( true ),
+						'baseTaxRate'       => $tax_rate,
+						'includingTaxText'  => $including_tax_text,
+						'excludingTaxText'  => $excluding_tax_text,
+						'includingVatText'  => $including_tax_text, // Deprecated since 1.8.0.
+						'excludingVatText'  => $excluding_tax_text, // Deprecated since 1.8.0.
 					]
 				);
 			}
@@ -164,21 +168,25 @@ class Wdevs_Tax_Switch_Compatibility {
 
 			// WooCommerce Fees & Discounts
 			if ( $this->is_plugin_active( 'woocommerce-fees-discounts/woocommerce-fees-discounts.php' ) ) {
-				$wcfad_handle = 'wdevs-tax-switch-woocommerce-fees-discounts';
-				$wcfad_asset  = $this->enqueue_script(
+				$wcfad_handle       = 'wdevs-tax-switch-woocommerce-fees-discounts';
+				$wcfad_asset        = $this->enqueue_script(
 					$wcfad_handle,
 					'switch',
 					'woocommerce-fees-discounts',
 					[ 'wcfad-script' ]
 				);
+				$including_tax_text = $this->get_tax_text( true );
+				$excluding_tax_text = $this->get_alternate_tax_text( true );
 
 				wp_localize_script(
 					$wcfad_handle,
 					'wtsCompatibilityObject',
 					[
-						'baseTaxRate'      => $tax_rate,
-						'includingVatText' => $this->get_vat_text( true ),
-						'excludingVatText' => $this->get_alternate_vat_text( true ),
+						'baseTaxRate'       => $tax_rate,
+						'includingTaxText'  => $including_tax_text,
+						'excludingTaxText'  => $excluding_tax_text,
+						'includingVatText'  => $including_tax_text, // Deprecated since 1.8.0.
+						'excludingVatText'  => $excluding_tax_text, // Deprecated since 1.8.0.
 					]
 				);
 			}
@@ -240,8 +248,10 @@ class Wdevs_Tax_Switch_Compatibility {
 	 * Includes these properties in the AJAX response for a variation
 	 */
 	public function add_prices_to_variation( $variation_data, $product, $variation ) {
-		$variation_data['price_incl_vat'] = wc_get_price_including_tax( $variation );
-		$variation_data['price_excl_vat'] = wc_get_price_excluding_tax( $variation );
+		$variation_data['price_incl_tax'] = wc_get_price_including_tax( $variation );
+		$variation_data['price_excl_tax'] = wc_get_price_excluding_tax( $variation );
+//		$variation_data['price_incl_vat'] = $variation_data['price_incl_tax']; // Deprecated since 1.8.0.
+//		$variation_data['price_excl_vat'] = $variation_data['price_excl_tax']; // Deprecated since 1.8.0.
 
 		return $variation_data;
 	}
@@ -353,11 +363,11 @@ class Wdevs_Tax_Switch_Compatibility {
 	}
 
 	/**
-	 * Filters FacetWP slider facet render arguments to add VAT label text to price sliders
+	 * Filters FacetWP slider facet render arguments to add tax label text to price sliders
 	 *
 	 * @param array $args Facet render arguments containing facet settings
 	 *
-	 * @return array Modified render arguments with VAT label text added to suffix
+	 * @return array Modified render arguments with tax label text added to suffix
 	 * @since 1.6.0
 	 */
 	public function filter_facetwp_slider_label( $args ) {
@@ -374,19 +384,19 @@ class Wdevs_Tax_Switch_Compatibility {
 
 		$shop_prices_include_tax = $this->shop_displays_price_including_tax_by_default();
 
-		// Get VAT text options
-		$vat_text           = $this->get_vat_text( $shop_prices_include_tax );
-		$alternate_vat_text = $this->get_alternate_vat_text( $shop_prices_include_tax );
+		// Get tax text options
+		$tax_text           = $this->get_tax_text( $shop_prices_include_tax );
+		$alternate_tax_text = $this->get_alternate_tax_text( $shop_prices_include_tax );
 
 		// Get current suffix (may be empty)
 		$current_suffix = isset( $args['facet']['suffix'] ) ? $args['facet']['suffix'] : '';
 
-		// Wrap the suffix with VAT label text
+		// Wrap the suffix with tax label text
 		$args['facet']['suffix'] = $this->wrap_price_displays(
 			$current_suffix,
 			$shop_prices_include_tax,
-			$vat_text,
-			$alternate_vat_text
+			$tax_text,
+			$alternate_tax_text
 		);
 
 		return $args;
@@ -456,10 +466,10 @@ class Wdevs_Tax_Switch_Compatibility {
 
 		$shop_prices_include_tax = $this->shop_displays_price_including_tax_by_default();
 
-		$vat_text           = $this->get_vat_text( $shop_prices_include_tax );
-		$alternate_vat_text = $this->get_alternate_vat_text( $shop_prices_include_tax );
+		$tax_text           = $this->get_tax_text( $shop_prices_include_tax );
+		$alternate_tax_text = $this->get_alternate_tax_text( $shop_prices_include_tax );
 
-		$html = $this->wrap_price_displays( '', $shop_prices_include_tax, $vat_text, $alternate_vat_text );
+		$html = $this->wrap_price_displays( '', $shop_prices_include_tax, $tax_text, $alternate_tax_text );
 
 		return $html;
 	}

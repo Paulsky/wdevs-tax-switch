@@ -33,7 +33,7 @@ class WoocommerceProductAddOns {
 			const $amounts = jQuery( this ).find(
 				'.product-addon-totals .amount'
 			);
-			const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+			const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 				this.originalTaxDisplay
 			);
 			let price,
@@ -75,7 +75,7 @@ class WoocommerceProductAddOns {
 					);
 
 					template = vm.taxSwitchElementBuilder.build(
-						displayIncludingVat,
+						displayIncludingTax,
 						priceText,
 						alternatePriceText,
 						null

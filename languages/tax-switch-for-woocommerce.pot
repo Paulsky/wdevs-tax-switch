@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tax Switch for WooCommerce\n"
-"POT-Creation-Date: 2026-02-12 15:17+0100\n"
+"POT-Creation-Date: 2026-06-29 12:34+0200\n"
 "PO-Revision-Date: 2024-09-16 10:21+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: wdevs-tax-switch.php\n"
@@ -117,29 +117,29 @@ msgstr ""
 
 #: admin/partials/section-wdevs-tax-switch-shortcode.php:137
 #: block/src/label/edit.js:61 block/src/switch/edit.js:164
-msgid "Including VAT label"
+msgid "Including tax label"
 msgstr ""
 
 #: admin/partials/section-wdevs-tax-switch-shortcode.php:141
-#: block/src/switch/components/SwitchComponent.js:180
+#: block/src/switch/components/SwitchComponent.js:187
 #: includes/class-wdevs-tax-switch-block-label.php:64
 #: includes/class-wdevs-tax-switch-block-label.php:82
 #: includes/class-wdevs-tax-switch-woocommerce.php:253
-#: includes/trait-wdevs-tax-switch-helper.php:458
+#: includes/trait-wdevs-tax-switch-helper.php:494
 msgid "Incl. VAT"
 msgstr ""
 
 #: admin/partials/section-wdevs-tax-switch-shortcode.php:147
 #: block/src/label/edit.js:71 block/src/switch/edit.js:174
-msgid "Excluding VAT label"
+msgid "Excluding tax label"
 msgstr ""
 
 #: admin/partials/section-wdevs-tax-switch-shortcode.php:151
-#: block/src/switch/components/SwitchComponent.js:191
+#: block/src/switch/components/SwitchComponent.js:198
 #: includes/class-wdevs-tax-switch-block-label.php:65
 #: includes/class-wdevs-tax-switch-block-label.php:83
 #: includes/class-wdevs-tax-switch-woocommerce.php:260
-#: includes/trait-wdevs-tax-switch-helper.php:461
+#: includes/trait-wdevs-tax-switch-helper.php:497
 msgid "Excl. VAT"
 msgstr ""
 
@@ -178,15 +178,15 @@ msgid "Label colors"
 msgstr ""
 
 #: block/src/label/edit.js:91
-msgid "Label excluding VAT color"
+msgid "Label excluding tax color"
 msgstr ""
 
 #: block/src/label/edit.js:102
-msgid "Label including VAT color"
+msgid "Label including tax color"
 msgstr ""
 
-#: block/src/switch/components/SwitchComponent.js:109
-msgid "Switch between prices including and excluding VAT"
+#: block/src/switch/components/SwitchComponent.js:114
+msgid "Switch between prices including and excluding tax"
 msgstr ""
 
 #: block/src/switch/edit.js:61
@@ -240,19 +240,19 @@ msgid "Customize the tax switch settings."
 msgstr ""
 
 #: includes/class-wdevs-tax-switch-woocommerce.php:249
-msgid "Including VAT text"
+msgid "Including tax text"
 msgstr ""
 
 #: includes/class-wdevs-tax-switch-woocommerce.php:251
-msgid "Text to append to prices including VAT."
+msgid "Text to append to prices including tax."
 msgstr ""
 
 #: includes/class-wdevs-tax-switch-woocommerce.php:256
-msgid "Excluding VAT text"
+msgid "Excluding tax text"
 msgstr ""
 
 #: includes/class-wdevs-tax-switch-woocommerce.php:258
-msgid "Text to append to prices excluding VAT."
+msgid "Text to append to prices excluding tax."
 msgstr ""
 
 #: includes/class-wdevs-tax-switch-woocommerce.php:271
@@ -307,7 +307,7 @@ msgstr ""
 
 #: includes/class-wdevs-tax-switch-woocommerce.php:291
 msgid ""
-"Allow customers to switch between prices including and excluding VAT in "
+"Allow customers to switch between prices including and excluding tax in "
 "the default WooCommerce mini cart."
 msgstr ""
 
@@ -336,7 +336,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Let customers toggle between inclusive and exclusive VAT pricing in your "
+"Let customers toggle between inclusive and exclusive tax pricing in your "
 "WooCommerce store."
 msgstr ""
 

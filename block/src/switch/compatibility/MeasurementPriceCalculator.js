@@ -115,12 +115,12 @@ class MeasurementPriceCalculator {
 	replaceTotalPriceDisplay( originalPrice, alternatePrice ) {
 		const $totalPriceElement = jQuery( '.total_price' );
 		if ( $totalPriceElement.length ) {
-			const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+			const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 				this.originalTaxDisplay
 			);
 
 			const template = this.taxSwitchElementBuilder.build(
-				displayIncludingVat,
+				displayIncludingTax,
 				originalPrice,
 				alternatePrice
 			);
@@ -132,18 +132,18 @@ class MeasurementPriceCalculator {
 	getCurrentPrice() {
 		if (
 			this.currentVariation &&
-			this.currentVariation.price_incl_vat &&
-			this.currentVariation.price_excl_vat
+			this.currentVariation.price_incl_tax &&
+			this.currentVariation.price_excl_tax
 		) {
-			// const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+			// const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 			// 	this.originalTaxDisplay
 			// );
-			// if ( displayIncludingVat ) {
+			// if ( displayIncludingTax ) {
 			if ( this.originalTaxDisplay === 'incl' ) {
-				return parseFloat( this.currentVariation.price_incl_vat );
+				return parseFloat( this.currentVariation.price_incl_tax );
 			}
 
-			return parseFloat( this.currentVariation.price_excl_vat );
+			return parseFloat( this.currentVariation.price_excl_tax );
 		}
 
 		return null;

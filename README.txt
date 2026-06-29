@@ -3,22 +3,22 @@ Contributors: wijnbergdevelopments
 Tags: woocommerce, tax, vat
 Requires at least: 5.0
 Tested up to: 7.0
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 Requires PHP: 7.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-Let customers toggle between inclusive and exclusive VAT pricing in your WooCommerce store.
+Let customers toggle between inclusive and exclusive tax pricing in your WooCommerce store.
 
 == Description ==
-Tax Switch for WooCommerce enhances your WooCommerce store by allowing users to toggle between displaying prices including or excluding VAT. This plugin adds a customizable switch component and provides a flexible way to display both price versions.
+Tax Switch for WooCommerce enhances your WooCommerce store by allowing users to toggle between displaying prices including or excluding tax. This plugin adds a customizable switch component and provides a flexible way to display both price versions.
 
 === Key features ===
 
 * Display customizable switches where you want
 * Gutenberg block support
 * Shortcode for easy integration (including shortcode generator)
-* Flexible display options for prices with and without VAT
+* Flexible display options for prices with and without tax
 * Remembers the user's preference for future visits
 * Choose between a toggle switch or buttons
 
@@ -80,7 +80,7 @@ After installation and configuration, you can add the tax switch to your pages i
 Basic usage:
 [wdevs_tax_switch]
 
-Displays a switch to toggle displaying prices including or excluding VAT.
+Displays a switch to toggle displaying prices including or excluding tax.
 
 The shortcode accepts several attributes to customize its appearance and behavior:
 
@@ -95,16 +95,16 @@ The shortcode accepts several attributes to customize its appearance and behavio
 * `switch-background-color`: Sets the background color of the switch.
 * `switch-text-color`: Sets the text color of the switch labels.
 * `switch-background-color-checked`: Sets the background color of the switch when it's in the "on" position.
-* `switch-label-incl`: Sets the text for the "including VAT" label.
+* `switch-label-incl`: Sets the text for the "including tax" label.
     - Default: Uses the text set in the plugin settings or "Incl. VAT" if not set.
-* `switch-label-excl`: Sets the text for the "excluding VAT" label.
+* `switch-label-excl`: Sets the text for the "excluding tax" label.
     - Default: Uses the text set in the plugin settings or "Excl. VAT" if not set.
 * `switch-aria-label`: Sets the aria label of the switch.
-    - Default: Uses the text set in the plugin settings or "Switch between prices including and excluding VAT" if not set.
+    - Default: Uses the text set in the plugin settings or "Switch between prices including and excluding tax" if not set.
 
 Example with custom attributes:
 
-`[wdevs_tax_switch class-name="is-style-inline" switch-type="switch" switch-color="#ffffff" switch-color-checked="#000000" switch-background-color="#000000" switch-background-color-checked="#4CAF50" switch-text-color="#FF0000" switch-label-incl="Incl. tax" switch-label-excl="Excl. tax" switch-aria-label="Switch between prices including and excluding VAT"]`
+`[wdevs_tax_switch class-name="is-style-inline" switch-type="switch" switch-color="#ffffff" switch-color-checked="#000000" switch-background-color="#000000" switch-background-color-checked="#4CAF50" switch-text-color="#FF0000" switch-label-incl="Incl. VAT" switch-label-excl="Excl. VAT" switch-aria-label="Switch between prices including and excluding tax"]`
 
 
 **Label**
@@ -119,12 +119,12 @@ The shortcode accepts several attributes to customize its appearance and behavio
 * `class-name`: Adds custom CSS classes to the label.
     - Default: is-style-default
     - Options: is-style-default or custom classes
-* `label-text-incl`: Sets the text to display when "including VAT" is selected.
+* `label-text-incl`: Sets the text to display when "including tax" is selected.
     - Default: Uses the text set in the plugin settings or "Incl. VAT" if not set.
-* `label-text-excl`: Sets the text to display when "excluding VAT" is selected.
+* `label-text-excl`: Sets the text to display when "excluding tax" is selected.
     - Default: Uses the text set in the plugin settings or "Excl. VAT" if not set.
-* `label-text-color`: Sets the "excluding VAT" text color.
-* `label-text-color-checked`: Sets the "including VAT" text color.
+* `label-text-color`: Sets the "excluding tax" text color.
+* `label-text-color-checked`: Sets the "including tax" text color.
 
 Example with custom attributes:
 
@@ -141,7 +141,7 @@ You can use these shortcodes with PHP with the do_shortcode() function:
 
 = JavaScript API =
 
-Tax Switch provides a small frontend JavaScript API for custom integrations, such as buttons, preference popups, or other flows where visitors choose whether they want to see prices including or excluding VAT.
+Tax Switch provides a JavaScript API for custom integrations, such as buttons, preference popups, or other flows where visitors choose whether they want to see prices including or excluding tax.
 
 `
 if ( window.wdevsTaxSwitch && ! window.wdevsTaxSwitch.hasSavedChoice() ) {
@@ -154,8 +154,9 @@ if ( window.wdevsTaxSwitch && ! window.wdevsTaxSwitch.hasSavedChoice() ) {
 API methods:
 * `hasSavedChoice()`: returns whether the visitor already has a saved switch choice.
 * `getDisplay()`: returns the current display, either `'incl'` or `'excl'`.
+* `refresh()`: reapplies the current display.
 * `setDisplay( display, options )`: changes the display to `'incl'` or `'excl'`.
-* `toggle( options )`: toggles between inclusive and exclusive VAT display.
+* `toggle( options )`: toggles between inclusive and exclusive tax display.
 
 Options:
 * `respectExistingChoice`: `boolean` - preserves an existing saved visitor choice.
@@ -181,7 +182,7 @@ Detail properties:
 
 = JavaScript events =
 
-The switch fires a JavaScript event when the tax display changes. You can listen for this event to execute custom code when a user switches between inclusive and exclusive VAT display. This is useful for when you need to perform additional actions based on the tax display state.
+The switch fires a JavaScript event when the tax display changes. You can listen for this event to execute custom code when a user switches between inclusive and exclusive tax display. This is useful for when you need to perform additional actions based on the tax display state.
 
 `
 document.addEventListener( 'wdevs-tax-switch-changed', function( event ) {
@@ -191,7 +192,7 @@ document.addEventListener( 'wdevs-tax-switch-changed', function( event ) {
 
 Detail properties:
 * `isSwitched`: `boolean` - the raw switch state.
-* `displayIncludingVat`: `boolean` - whether prices now display including VAT.
+* `displayIncludingTax`: `boolean` - whether prices now display including tax.
 
 If you are loading the switch dynamically (via AJAX), dispatch this event after rendering to initialize the component:
 
@@ -287,6 +288,11 @@ The plugin is designed to keep prices consistent in the cart and checkout proces
 
 
 == Changelog ==
+= 1.8.0 =
+* Added `refresh()` to the public JavaScript API for reapplying the current tax display
+* Standardized "VAT" terminology to "tax" across text, documentation and code
+* Tested WooCommerce 10.9.1
+
 = 1.7.0 =
 * Improved product context detection for price calculations with custom tax classes
 * Improved React compatibility by reusing existing roots when dynamically rendering tax switches

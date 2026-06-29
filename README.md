@@ -1,6 +1,6 @@
 # Tax Switch for WooCommerce
 
-Enhances WooCommerce by allowing users to toggle between displaying prices including or excluding VAT. This plugin adds a customizable switch component and provides a flexible way to display both price versions.
+Enhances WooCommerce by allowing users to toggle between displaying prices including or excluding tax. This plugin adds a customizable switch component and provides a flexible way to display both price versions.
 
 <br/>
 <img src="https://github.com/user-attachments/assets/a76b1145-b4c2-4ff8-83c1-2d721caefaa7" width="300" alt="Tax Switch for WooCommerce demo" style="max-width: 300px !important; height: auto !important;" />
@@ -88,7 +88,7 @@ After configuration, you can add the tax switch to your pages in two ways:
 1. Use the Gutenberg block "Tax Switch for WooCommerce" in your page or post editor.
 2. Use the shortcode `[wdevs_tax_switch]` anywhere in your content.
 
-The switch will toggle the display of prices including or excluding VAT across your site.
+The switch will toggle the display of prices including or excluding tax across your site.
 
 ### Shortcode Usage
 
@@ -115,16 +115,16 @@ The shortcode also accepts several attributes to customize its appearance:
 - `switch-background-color`: Sets the background color of the switch.
 - `switch-background-color-checked`: Sets the background color of the switch when it's in the "on" position.
 - `switch-text-color`: Sets the text color of the switch labels.
-- `switch-label-incl`: Sets the text for the "including VAT" label.
+- `switch-label-incl`: Sets the text for the "including tax" label.
     - Default: Uses the text set in the plugin settings or "Incl. VAT" if not set.
-- `switch-label-excl`: Sets the text for the "excluding VAT" label.
+- `switch-label-excl`: Sets the text for the "excluding tax" label.
     - Default: Uses the text set in the plugin settings or "Excl. VAT" if not set.
 - `switch-aria-label`: Sets the aria label of the switch.
-	- Default: Uses the text set in the plugin settings or "Switch between prices including and excluding VAT" if not set.
+	- Default: Uses the text set in the plugin settings or "Switch between prices including and excluding tax" if not set.
 
 Example with custom attributes:
 
-`[wdevs_tax_switch class-name="is-style-inline" switch-type="switch" switch-color="#ffffff" switch-color-checked="#000000" switch-background-color="#000000" switch-background-color-checked="#4CAF50" switch-text-color="#FF0000" switch-label-incl="Incl. tax" switch-label-excl="Excl. tax" switch-aria-label="Switch between prices including and excluding VAT"]`
+`[wdevs_tax_switch class-name="is-style-inline" switch-type="switch" switch-color="#ffffff" switch-color-checked="#000000" switch-background-color="#000000" switch-background-color-checked="#4CAF50" switch-text-color="#FF0000" switch-label-incl="Incl. VAT" switch-label-excl="Excl. VAT" switch-aria-label="Switch between prices including and excluding tax"]`
 
 This will display an inline-style switch with a white handle that turns black when on, a black background when off, green background when on, and custom labels for including and excluding tax.
 
@@ -139,12 +139,12 @@ Attributes:
 - `class-name`: Adds custom CSS classes to the label.
 	- Default: `is-style-default`
 	- Options: `is-style-default` or custom classes
-- `label-text-incl`: Sets the text to display when "including VAT" is selected.
+- `label-text-incl`: Sets the text to display when "including tax" is selected.
 	- Default: Uses the text set in the plugin settings or "Incl. VAT" if not set.
-- `label-text-excl`: Sets the text to display when "excluding VAT" is selected.
+- `label-text-excl`: Sets the text to display when "excluding tax" is selected.
 	- Default: Uses the text set in the plugin settings or "Excl. VAT" if not set.
-- `label-text-color`: Sets the "excluding VAT" text color.
-- `label-text-color-checked`: Sets the "including VAT" text color.
+- `label-text-color`: Sets the "excluding tax" text color.
+- `label-text-color-checked`: Sets the "including tax" text color.
 
 Example with custom attributes:
 `[wdevs_tax_switch_label class-name="tax-indicator" label-text-incl="Prices include tax" label-text-excl="Prices exclude tax" label-text-color="#FF0000" label-text-color-checked="#4CAF50"]`
@@ -161,7 +161,7 @@ You can use these shortcodes with PHP with the do_shortcode() function:
 
 #### JavaScript API
 
-Tax Switch provides a small frontend JavaScript API for custom integrations, such as buttons, preference popups, or other flows where visitors choose whether they want to see prices including or excluding VAT.
+Tax Switch provides a JavaScript API for custom integrations, such as buttons, preference popups, or other flows where visitors choose whether they want to see prices including or excluding tax.
 
 ```js
 if ( window.wdevsTaxSwitch && ! window.wdevsTaxSwitch.hasSavedChoice() ) {
@@ -174,8 +174,9 @@ if ( window.wdevsTaxSwitch && ! window.wdevsTaxSwitch.hasSavedChoice() ) {
 API methods:
 - `hasSavedChoice()`: returns whether the visitor already has a saved switch choice.
 - `getDisplay()`: returns the current display, either `'incl'` or `'excl'`.
+- `refresh()`: reapplies the current display.
 - `setDisplay( display, options )`: changes the display to `'incl'` or `'excl'`.
-- `toggle( options )`: toggles between inclusive and exclusive VAT display.
+- `toggle( options )`: toggles between inclusive and exclusive tax display.
 
 Options:
 - `respectExistingChoice`: `boolean` - preserves an existing saved visitor choice.
@@ -211,7 +212,7 @@ document.addEventListener( 'wdevs-tax-switch-changed', function( event ) {
 
 Detail properties:
 - `isSwitched`: `boolean` - the raw switch state.
-- `displayIncludingVat`: `boolean` - whether prices now display including VAT.
+- `displayIncludingTax`: `boolean` - whether prices now display including tax.
 
 ### WPML
 

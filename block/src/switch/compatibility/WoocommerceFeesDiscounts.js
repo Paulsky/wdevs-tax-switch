@@ -8,12 +8,12 @@ class WoocommerceFeesDiscounts {
 		this.taxSwitchElementBuilder = new TaxSwitchElementBuilder(
 			this.originalTaxDisplay
 		);
-		this.vatTexts = null;
+		this.taxTexts = null;
 	}
 
 	init() {
 		const vm = this;
-		vm.vatTexts = TaxSwitchElementBuilder.getVatTexts();
+		vm.taxTexts = TaxSwitchElementBuilder.getTaxTexts();
 		vm.extendOriginalFunction();
 		vm.registerWoocommerceEvents();
 	}
@@ -31,7 +31,7 @@ class WoocommerceFeesDiscounts {
 				return originalWcfadPrice.apply( this, [ price, price_only ] );
 			}
 
-			const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+			const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 				vm.originalTaxDisplay
 			);
 
@@ -53,10 +53,10 @@ class WoocommerceFeesDiscounts {
 			] );
 
 			return vm.taxSwitchElementBuilder.build(
-				displayIncludingVat,
+				displayIncludingTax,
 				originalPriceDisplay,
 				alternatePriceDisplay,
-				vm.vatTexts
+				vm.taxTexts
 			);
 		}.bind( this );
 	}
@@ -65,37 +65,37 @@ class WoocommerceFeesDiscounts {
 		const vm = this;
 
 		jQuery( 'body' ).on( 'pewc_do_percentages', function () {
-			vm.setMainPriceVatTexts();
+			vm.setMainPriceTaxTexts();
 		} );
 
 		jQuery( document ).ready( function () {
-			vm.setMainPriceVatTexts();
+			vm.setMainPriceTaxTexts();
 		} );
 	}
 
 	//TODO; this is duplicated, maybe move to TaxSwitchElementBuilder or TaxSwitchHelper
-	getVatTextElement() {
+	getTaxTextElement() {
 		const vm = this;
-		if ( ! vm.vatTexts ) {
-			vm.vatTexts = TaxSwitchElementBuilder.getVatTexts();
+		if ( ! vm.taxTexts ) {
+			vm.taxTexts = TaxSwitchElementBuilder.getTaxTexts();
 		}
-		if ( vm.vatTexts && vm.vatTexts.including && vm.vatTexts.excluding ) {
-			const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+		if ( vm.taxTexts && vm.taxTexts.including && vm.taxTexts.excluding ) {
+			const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 				vm.originalTaxDisplay
 			);
 
-			const vatTextElement = TaxSwitchElementBuilder.getVatTextElement(
-				displayIncludingVat,
-				vm.vatTexts.including,
-				vm.vatTexts.excluding
+			const taxTextElement = TaxSwitchElementBuilder.getTaxTextElement(
+				displayIncludingTax,
+				vm.taxTexts.including,
+				vm.taxTexts.excluding
 			);
 
-			return vatTextElement;
+			return taxTextElement;
 		}
 		return null;
 	}
 
-	setMainPriceVatTexts() {
+	setMainPriceTaxTexts() {
 		const vm = this;
 		const mainPrice = jQuery( '.wcfad-main-price' );
 
@@ -120,10 +120,10 @@ class WoocommerceFeesDiscounts {
 			priceContainer.length &&
 			priceContainer.find( '.wts-price-wrapper' ).length === 1 //TODO: this is false/positive when there is a from - to price
 		) {
-			const vatTextElement = vm.getVatTextElement();
+			const taxTextElement = vm.getTaxTextElement();
 
-			if ( vatTextElement ) {
-				priceContainer.append( vatTextElement );
+			if ( taxTextElement ) {
+				priceContainer.append( taxTextElement );
 			}
 
 			TaxSwitchHelper.setPriceClasses( vm.originalTaxDisplay );

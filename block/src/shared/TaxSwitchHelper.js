@@ -2,7 +2,7 @@ import { getIsSwitched } from './store';
 
 class TaxSwitchHelper {
 	static togglePriceClasses( originalTaxDisplay, isSwitched ) {
-		const displayIncludingVat = this.displayIncludingVat(
+		const displayIncludingTax = this.displayIncludingTax(
 			originalTaxDisplay,
 			isSwitched
 		);
@@ -16,7 +16,7 @@ class TaxSwitchHelper {
 				':scope > .wts-price-excl'
 			);
 
-			if ( displayIncludingVat ) {
+			if ( displayIncludingTax ) {
 				inclElement.classList.remove( 'wts-inactive' );
 				inclElement.classList.add( 'wts-active' );
 				exclElement.classList.remove( 'wts-active' );
@@ -30,7 +30,7 @@ class TaxSwitchHelper {
 		} );
 	}
 
-	static displayIncludingVat( originalTaxDisplay, isSwitched ) {
+	static displayIncludingTax( originalTaxDisplay, isSwitched ) {
 		if ( isSwitched === null || isSwitched === undefined ) {
 			isSwitched = getIsSwitched();
 		}
@@ -38,6 +38,15 @@ class TaxSwitchHelper {
 			( originalTaxDisplay === 'incl' && ! isSwitched ) ||
 			( originalTaxDisplay === 'excl' && isSwitched )
 		);
+	}
+
+	/**
+	 * @deprecated Since 1.8.0. Use displayIncludingTax().
+	 * @param {...*} args Arguments passed to displayIncludingTax().
+	 * @return {boolean} Whether prices display including tax.
+	 */
+	static displayIncludingVat( ...args ) {
+		return this.displayIncludingTax( ...args );
 	}
 
 	static parseBooleanValue( value ) {
@@ -57,11 +66,11 @@ class TaxSwitchHelper {
 			return price;
 		}
 
-		const displayIncludingVat = originalTaxDisplay === 'incl';
+		const displayIncludingTax = originalTaxDisplay === 'incl';
 		const taxMultiplier = 1 + taxRate / 100;
 
 		let alternatePrice;
-		if ( displayIncludingVat ) {
+		if ( displayIncludingTax ) {
 			alternatePrice = price / taxMultiplier;
 		} else {
 			alternatePrice = price * taxMultiplier;

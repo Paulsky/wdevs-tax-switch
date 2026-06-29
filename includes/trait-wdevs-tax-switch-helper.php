@@ -483,13 +483,13 @@ trait Wdevs_Tax_Switch_Helper {
 	}
 
 	/**
-	 * Get the label for the current VAT display status.
+	 * Get the label for the current tax display status.
 	 *
 	 * @param bool $shop_prices_include_tax Whether the shop shows prices including tax.
 	 * @return string
-	 * @since 1.6.7
+	 * @since 1.8.0
 	 */
-	public function get_vat_text($shop_prices_include_tax){
+	public function get_tax_text( $shop_prices_include_tax ) {
 		if ( $shop_prices_include_tax ) {
 			return $this->get_option_text( 'wdevs_tax_switch_incl_vat', __( 'Incl. VAT', 'tax-switch-for-woocommerce' ) );
 		}
@@ -498,15 +498,38 @@ trait Wdevs_Tax_Switch_Helper {
 	}
 
 	/**
-	 * Get the label for the alternate VAT display.
+	 * Get the label for the alternate tax display.
 	 *
 	 * @param bool $shop_prices_include_tax Whether the shop shows prices including tax.
 	 * @return string
-	 * @since 1.6.7
+	 * @since 1.8.0
 	 */
-	public function get_alternate_vat_text($shop_prices_include_tax){
-		$shop_prices_exclude_tax = !$shop_prices_include_tax;
-		return $this->get_vat_text($shop_prices_exclude_tax);
+	public function get_alternate_tax_text( $shop_prices_include_tax ) {
+		return $this->get_tax_text( ! $shop_prices_include_tax );
+	}
+
+	/**
+	 * @since 1.6.7
+	 * @deprecated 1.8.0 Use get_tax_text().
+	 * @param bool $shop_prices_include_tax Whether the shop shows prices including tax.
+	 * @return string
+	 */
+	public function get_vat_text( $shop_prices_include_tax ) {
+		_deprecated_function( __METHOD__, '1.8.0', 'get_tax_text' );
+
+		return $this->get_tax_text( $shop_prices_include_tax );
+	}
+
+	/**
+	 * @since 1.6.7
+	 * @deprecated 1.8.0 Use get_alternate_tax_text().
+	 * @param bool $shop_prices_include_tax Whether the shop shows prices including tax.
+	 * @return string
+	 */
+	public function get_alternate_vat_text( $shop_prices_include_tax ) {
+		_deprecated_function( __METHOD__, '1.8.0', 'get_alternate_tax_text' );
+
+		return $this->get_alternate_tax_text( $shop_prices_include_tax );
 	}
 
 }

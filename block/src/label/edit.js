@@ -58,7 +58,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				>
 					<TextControl
 						label={ __(
-							'Including VAT label',
+							'Including tax label',
 							'tax-switch-for-woocommerce'
 						) }
 						value={ labelTextIncl }
@@ -68,7 +68,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 					<TextControl
 						label={ __(
-							'Excluding VAT label',
+							'Excluding tax label',
 							'tax-switch-for-woocommerce'
 						) }
 						value={ labelTextExcl }
@@ -88,7 +88,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									labelTextColor: color,
 								} ),
 							label: __(
-								'Label excluding VAT color',
+								'Label excluding tax color',
 								'tax-switch-for-woocommerce'
 							),
 						},
@@ -99,7 +99,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									labelTextColorChecked: color,
 								} ),
 							label: __(
-								'Label including VAT color',
+								'Label including tax color',
 								'tax-switch-for-woocommerce'
 							),
 						},

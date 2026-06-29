@@ -73,14 +73,19 @@ class SwitchComponent extends Component {
 		} );
 	}
 
-	displayIncludingVat() {
+	displayIncludingTax() {
 		const { originalTaxDisplay = 'incl' } = this.props;
 		const { isSwitched } = this.state;
 
-		return TaxSwitchHelper.displayIncludingVat(
+		return TaxSwitchHelper.displayIncludingTax(
 			originalTaxDisplay,
 			isSwitched
 		);
+	}
+
+	/** @deprecated Since 1.8.0. Use displayIncludingTax(). */
+	displayIncludingVat() {
+		return this.displayIncludingTax();
 	}
 
 	togglePriceClasses() {
@@ -106,14 +111,14 @@ class SwitchComponent extends Component {
 		}
 
 		return __(
-			'Switch between prices including and excluding VAT',
+			'Switch between prices including and excluding tax',
 			'tax-switch-for-woocommerce'
 		);
 	}
 
 	getCurrentLabel() {
 		const { switchLabelIncl, switchLabelExcl } = this.props;
-		if ( this.displayIncludingVat() ) {
+		if ( this.displayIncludingTax() ) {
 			return switchLabelIncl || '';
 		}
 		return switchLabelExcl || '';
@@ -121,10 +126,12 @@ class SwitchComponent extends Component {
 
 	fireSwitchChangeEvent( isSwitched ) {
 		const vm = this;
+		const displayIncludingTax = vm.displayIncludingTax();
 		const switchEvent = new CustomEvent( 'wdevs-tax-switch-changed', {
 			detail: {
 				isSwitched: isSwitched,
-				displayIncludingVat: vm.displayIncludingVat(),
+				displayIncludingTax,
+				displayIncludingVat: displayIncludingTax, // deprecated since 1.8.0
 			},
 		} );
 
@@ -142,7 +149,7 @@ class SwitchComponent extends Component {
 			switchLabelExcl,
 		} = this.props;
 
-		const isIncl = this.displayIncludingVat();
+		const isIncl = this.displayIncludingTax();
 		const { isDisabled } = this.state;
 
 		const setInclusive = () => {
@@ -205,7 +212,7 @@ class SwitchComponent extends Component {
 			switchLabelExcl,
 		} = this.props;
 
-		const isChecked = this.displayIncludingVat();
+		const isChecked = this.displayIncludingTax();
 		const showLabel = switchLabelIncl || switchLabelExcl;
 		const { isDisabled } = this.state;
 

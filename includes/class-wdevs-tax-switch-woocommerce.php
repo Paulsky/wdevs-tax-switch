@@ -246,16 +246,16 @@ class Wdevs_Tax_Switch_Woocommerce {
 				'id'   => 'wdevs_tax_switch_section_title'
 			),
 			array(
-				'name'        => __( 'Including VAT text', 'tax-switch-for-woocommerce' ),
+				'name'        => __( 'Including tax text', 'tax-switch-for-woocommerce' ),
 				'type'        => 'text',
-				'desc'        => __( 'Text to append to prices including VAT.', 'tax-switch-for-woocommerce' ),
+				'desc'        => __( 'Text to append to prices including tax.', 'tax-switch-for-woocommerce' ),
 				'id'          => 'wdevs_tax_switch_incl_vat',
 				'placeholder' => __( 'Incl. VAT', 'tax-switch-for-woocommerce' )
 			),
 			array(
-				'name'        => __( 'Excluding VAT text', 'tax-switch-for-woocommerce' ),
+				'name'        => __( 'Excluding tax text', 'tax-switch-for-woocommerce' ),
 				'type'        => 'text',
-				'desc'        => __( 'Text to append to prices excluding VAT.', 'tax-switch-for-woocommerce' ),
+				'desc'        => __( 'Text to append to prices excluding tax.', 'tax-switch-for-woocommerce' ),
 				'id'          => 'wdevs_tax_switch_excl_vat',
 				'placeholder' => __( 'Excl. VAT', 'tax-switch-for-woocommerce' )
 			),
@@ -288,7 +288,7 @@ class Wdevs_Tax_Switch_Woocommerce {
 				//added in 1.6.0
 				'name'     => __( 'Price switching in mini cart', 'tax-switch-for-woocommerce' ),
 				'type'     => 'checkbox',
-				'desc'     => __( 'Allow customers to switch between prices including and excluding VAT in the default WooCommerce mini cart.', 'tax-switch-for-woocommerce' ),
+				'desc'     => __( 'Allow customers to switch between prices including and excluding tax in the default WooCommerce mini cart.', 'tax-switch-for-woocommerce' ),
 				'desc_tip' => __( 'By default, price switching is disabled in the mini cart to keep cart totals consistent. After changing this setting, empty the mini cart and reload to see the updated behavior (the mini cart markup is cached).', 'tax-switch-for-woocommerce' ),
 				'id'       => 'wdevs_tax_switch_enable_mini_cart',
 				'default'  => 'no'

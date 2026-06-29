@@ -131,7 +131,7 @@ class Wdevs_Tax_Switch_Public {
 	}
 
 	/**
-	 * Add 'excl. vat' or 'incl. vat' text
+	 * Add 'excl. tax' or 'incl. tax' text
 	 *
 	 * @param $price_html
 	 * @param $product
@@ -166,16 +166,16 @@ class Wdevs_Tax_Switch_Public {
 
 		$shop_prices_include_tax = $this->shop_displays_price_including_tax_by_default();
 
-		// Get VAT text options
-		$vat_text           = $this->get_vat_text($shop_prices_include_tax);
-		$alternate_vat_text = $this->get_alternate_vat_text($shop_prices_include_tax);
+		// Get tax text options
+		$tax_text           = $this->get_tax_text( $shop_prices_include_tax );
+		$alternate_tax_text = $this->get_alternate_tax_text( $shop_prices_include_tax );
 
 		//Re-enable this filter and function
 		//Is this still needed?
 		//add_filter( 'woocommerce_get_price_html', [ $this, 'get_price_html' ], PHP_INT_MIN, 2 );
 
 		// Combine both price displays into one HTML string
-		$html = $this->wrap_price_displays( $price_html, $shop_prices_include_tax, $vat_text, $alternate_vat_text );
+		$html = $this->wrap_price_displays( $price_html, $shop_prices_include_tax, $tax_text, $alternate_tax_text );
 
 		return $html;
 	}

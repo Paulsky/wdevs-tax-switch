@@ -9,12 +9,12 @@ class ProductExtrasForWoocommerce {
 		this.taxSwitchElementBuilder = new TaxSwitchElementBuilder(
 			this.originalTaxDisplay
 		);
-		this.vatTexts = null;
+		this.taxTexts = null;
 	}
 
 	init() {
 		const vm = this;
-		vm.vatTexts = TaxSwitchElementBuilder.getVatTexts();
+		vm.taxTexts = TaxSwitchElementBuilder.getTaxTexts();
 		vm.extendOriginalFunctions();
 		vm.wrapPrices();
 		vm.registerWoocommerceEvents();
@@ -33,7 +33,7 @@ class ProductExtrasForWoocommerce {
 			price_only = false,
 			update_pewc_total_calc_price = true
 		) {
-			const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+			const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 				vm.originalTaxDisplay
 			);
 			const alternatePrice = TaxSwitchHelper.calculateAlternatePrice(
@@ -55,7 +55,7 @@ class ProductExtrasForWoocommerce {
 			] );
 
 			return vm.taxSwitchElementBuilder.build(
-				displayIncludingVat,
+				displayIncludingTax,
 				originalPriceDisplay,
 				alternatePriceDisplay,
 				null
@@ -65,7 +65,7 @@ class ProductExtrasForWoocommerce {
 		const originalPewcWcPriceWithoutCurrency = window.pewc_wc_price;
 
 		window.pewc_wc_price_without_currency = function ( price ) {
-			const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+			const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 				vm.originalTaxDisplay
 			);
 			const alternatePrice = TaxSwitchHelper.calculateAlternatePrice(
@@ -83,7 +83,7 @@ class ProductExtrasForWoocommerce {
 				] );
 
 			return vm.taxSwitchElementBuilder.build(
-				displayIncludingVat,
+				displayIncludingTax,
 				originalPriceDisplay,
 				alternatePriceDisplay,
 				null
@@ -129,9 +129,9 @@ class ProductExtrasForWoocommerce {
 					priceContainer.length &&
 					priceContainer.find( '.wts-price-wrapper' ).length === 1 //TODO: this is false/positive when there is a from - to price
 				) {
-					const vatTextElement = vm.getVatTextElement();
-					if ( vatTextElement ) {
-						priceContainer.append( vatTextElement );
+					const taxTextElement = vm.getTaxTextElement();
+					if ( taxTextElement ) {
+						priceContainer.append( taxTextElement );
 					}
 				}
 			}
@@ -182,7 +182,7 @@ class ProductExtrasForWoocommerce {
 			window.pewc_vars.decimal_separator
 		);
 
-		const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+		const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 			this.originalTaxDisplay
 		);
 
@@ -204,30 +204,30 @@ class ProductExtrasForWoocommerce {
 		);
 
 		return this.taxSwitchElementBuilder.build(
-			displayIncludingVat,
+			displayIncludingTax,
 			html,
 			alternatePriceDisplay,
 			null
 		);
 	}
 
-	getVatTextElement() {
+	getTaxTextElement() {
 		const vm = this;
-		if ( ! vm.vatTexts ) {
-			vm.vatTexts = TaxSwitchElementBuilder.getVatTexts();
+		if ( ! vm.taxTexts ) {
+			vm.taxTexts = TaxSwitchElementBuilder.getTaxTexts();
 		}
-		if ( vm.vatTexts && vm.vatTexts.including && vm.vatTexts.excluding ) {
-			const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+		if ( vm.taxTexts && vm.taxTexts.including && vm.taxTexts.excluding ) {
+			const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 				vm.originalTaxDisplay
 			);
 
-			const vatTextElement = TaxSwitchElementBuilder.getVatTextElement(
-				displayIncludingVat,
-				vm.vatTexts.including,
-				vm.vatTexts.excluding
+			const taxTextElement = TaxSwitchElementBuilder.getTaxTextElement(
+				displayIncludingTax,
+				vm.taxTexts.including,
+				vm.taxTexts.excluding
 			);
 
-			return vatTextElement;
+			return taxTextElement;
 		}
 		return null;
 	}
@@ -239,8 +239,8 @@ class ProductExtrasForWoocommerce {
 		const $suffixElement = $element.find( '.woocommerce-price-suffix' );
 		if ( ! $suffixElement.length ) return;
 
-		const vatTextElement = vm.getVatTextElement();
-		if ( ! vatTextElement ) return;
+		const taxTextElement = vm.getTaxTextElement();
+		if ( ! taxTextElement ) return;
 
 		const $directPriceContainer = $element.children(
 			'.wts-price-container'
@@ -248,9 +248,9 @@ class ProductExtrasForWoocommerce {
 
 		if ( $directPriceContainer.length > 0 ) {
 			$suffixElement.remove();
-			$directPriceContainer.append( vatTextElement );
+			$directPriceContainer.append( taxTextElement );
 		} else {
-			$suffixElement.replaceWith( vatTextElement );
+			$suffixElement.replaceWith( taxTextElement );
 		}
 	}
 }

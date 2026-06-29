@@ -42,19 +42,24 @@ class LabelComponent extends Component {
 		}
 	}
 
-	displayIncludingVat() {
+	displayIncludingTax() {
 		const { originalTaxDisplay = 'incl' } = this.props;
 		const { isSwitched } = this.state;
 
-		return TaxSwitchHelper.displayIncludingVat(
+		return TaxSwitchHelper.displayIncludingTax(
 			originalTaxDisplay,
 			isSwitched
 		);
 	}
 
+	/** @deprecated Since 1.8.0. Use displayIncludingTax(). */
+	displayIncludingVat() {
+		return this.displayIncludingTax();
+	}
+
 	getCurrentLabel() {
 		const { labelTextIncl, labelTextExcl } = this.props;
-		if ( this.displayIncludingVat() ) {
+		if ( this.displayIncludingTax() ) {
 			return labelTextIncl || '';
 		}
 
@@ -75,7 +80,7 @@ class LabelComponent extends Component {
 			return '';
 		}
 
-		const isChecked = this.displayIncludingVat();
+		const isChecked = this.displayIncludingTax();
 
 		return (
 			<span

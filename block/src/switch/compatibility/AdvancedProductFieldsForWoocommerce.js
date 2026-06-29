@@ -30,13 +30,13 @@ class AdvancedProductFieldsForWoocommerce {
 				}
 
 				const taxRateAsPercentage = ( taxFactor - 1 ) * 100;
-				const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+				const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 					vm.originalTaxDisplay
 				);
 
 				jQuery( '.wapf-product-total' ).html(
 					vm.taxSwitchElementBuilder.build(
-						displayIncludingVat,
+						displayIncludingTax,
 						vm.formatPrice( productTotal ),
 						vm.formatPrice(
 							TaxSwitchHelper.calculateAlternatePrice(
@@ -51,7 +51,7 @@ class AdvancedProductFieldsForWoocommerce {
 
 				jQuery( '.wapf-options-total' ).html(
 					vm.taxSwitchElementBuilder.build(
-						displayIncludingVat,
+						displayIncludingTax,
 						vm.formatPrice( optionsTotal ),
 						vm.formatPrice(
 							TaxSwitchHelper.calculateAlternatePrice(
@@ -66,7 +66,7 @@ class AdvancedProductFieldsForWoocommerce {
 
 				jQuery( '.wapf-grand-total' ).html(
 					vm.taxSwitchElementBuilder.build(
-						displayIncludingVat,
+						displayIncludingTax,
 						vm.formatPrice( grandTotal ),
 						vm.formatPrice(
 							TaxSwitchHelper.calculateAlternatePrice(
@@ -111,7 +111,7 @@ class AdvancedProductFieldsForWoocommerce {
 
 				const taxRateAsPercentage = ( taxFactor - 1 ) * 100;
 
-				const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+				const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 					vm.originalTaxDisplay
 				);
 
@@ -134,7 +134,7 @@ class AdvancedProductFieldsForWoocommerce {
 				);
 
 				const newHint = vm.taxSwitchElementBuilder.build(
-					displayIncludingVat,
+					displayIncludingTax,
 					hint,
 					alternateHint,
 					null

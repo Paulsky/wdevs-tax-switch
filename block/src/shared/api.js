@@ -34,23 +34,25 @@ const normalizeOriginalTaxDisplay = ( value ) => {
 };
 
 const getSwitchStateForDisplay = ( display ) => {
-	const displayIncludingVat = display === 'incl';
+	const displayIncludingTax = display === 'incl';
 
 	if ( originalTaxDisplay === 'incl' ) {
-		return ! displayIncludingVat;
+		return ! displayIncludingTax;
 	}
 
-	return displayIncludingVat;
+	return displayIncludingTax;
 };
 
 const fireTaxSwitchChangedEvent = ( isSwitched ) => {
+	const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
+		originalTaxDisplay,
+		isSwitched
+	);
 	const switchEvent = new CustomEvent( 'wdevs-tax-switch-changed', {
 		detail: {
 			isSwitched,
-			displayIncludingVat: TaxSwitchHelper.displayIncludingVat(
-				originalTaxDisplay,
-				isSwitched
-			),
+			displayIncludingTax,
+			displayIncludingVat: displayIncludingTax, // deprecated since 1.8.0
 		},
 	} );
 
@@ -86,7 +88,7 @@ const applySwitchState = ( nextIsSwitched, options = {} ) => {
 };
 
 const getDisplay = () => {
-	return TaxSwitchHelper.displayIncludingVat(
+	return TaxSwitchHelper.displayIncludingTax(
 		originalTaxDisplay,
 		getIsSwitched()
 	)
@@ -104,6 +106,10 @@ const setDisplay = ( display, options = {} ) => {
 
 const toggle = ( options = {} ) => {
 	return applySwitchState( ! getIsSwitched(), options );
+};
+
+const refresh = () => {
+	return TaxSwitchHelper.setPriceClasses( originalTaxDisplay );
 };
 
 const handleContextChanged = ( event ) => {
@@ -129,6 +135,7 @@ const exposeApi = () => {
 	Object.assign( getGlobalApi(), {
 		hasSavedChoice: switchedIsSaved,
 		getDisplay,
+		refresh,
 		setDisplay,
 		toggle,
 	} );

@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to the Tax Switch for WooCommerce plugin will be documented in this file.
 
+## [1.8.0] - 2026-06-29
+### Added
+- `refresh()` to the public JavaScript API for reapplying the current tax display
+### Updated
+- Standardized "VAT" terminology to "tax" across text, documentation and code
+- Tested WooCommerce 10.9.1
+
 ## [1.7.0] - 2026-06-25
 ### Updated
 - Improved product context detection for price calculations with custom tax classes

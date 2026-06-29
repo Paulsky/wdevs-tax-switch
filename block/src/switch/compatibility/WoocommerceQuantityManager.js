@@ -94,7 +94,7 @@ class WoocommerceQuantityManager {
 	updatePriceElement( element ) {
 		const vm = this;
 		const $element = jQuery( element );
-		const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+		const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 			vm.originalTaxDisplay
 		);
 
@@ -120,7 +120,7 @@ class WoocommerceQuantityManager {
 				.find( 'del' )
 				.html(
 					vm.taxSwitchElementBuilder.build(
-						displayIncludingVat,
+						displayIncludingTax,
 						originalPriceContent,
 						processPrice( originalPriceContent ),
 						null
@@ -131,7 +131,7 @@ class WoocommerceQuantityManager {
 				.find( 'ins' )
 				.html(
 					vm.taxSwitchElementBuilder.build(
-						displayIncludingVat,
+						displayIncludingTax,
 						salePriceContent,
 						processPrice( salePriceContent ),
 						null
@@ -141,7 +141,7 @@ class WoocommerceQuantityManager {
 			const originalPriceContent = $element.text().trim();
 			$element.html(
 				vm.taxSwitchElementBuilder.build(
-					displayIncludingVat,
+					displayIncludingTax,
 					originalPriceContent,
 					processPrice( originalPriceContent ),
 					null

@@ -4,10 +4,10 @@ class TaxSwitchElementBuilder {
 	}
 
 	build(
-		displayIncludingVat,
+		displayIncludingTax,
 		originalPrice,
 		alternatePrice,
-		vatTexts = null
+		taxTexts = null
 	) {
 		const vm = this;
 
@@ -22,11 +22,11 @@ class TaxSwitchElementBuilder {
 			return isVisible ? 'wts-active' : 'wts-inactive';
 		}
 
-		function createPriceElement( price, isIncludingVat ) {
+		function createPriceElement( price, isIncludingTax ) {
 			const visibilityClass = getVisibilityClass(
-				isIncludingVat === displayIncludingVat
+				isIncludingTax === displayIncludingTax
 			);
-			const priceType = isIncludingVat ? 'incl' : 'excl';
+			const priceType = isIncludingTax ? 'incl' : 'excl';
 
 			return `
          <span class="wts-price-${ priceType } ${ visibilityClass }">
@@ -43,12 +43,12 @@ class TaxSwitchElementBuilder {
          </span>
    `;
 
-		if ( vatTexts ) {
-			function createTextElement( text, isIncludingVat ) {
+		if ( taxTexts ) {
+			function createTextElement( text, isIncludingTax ) {
 				const visibilityClass = getVisibilityClass(
-					isIncludingVat === displayIncludingVat
+					isIncludingTax === displayIncludingTax
 				);
-				const priceType = isIncludingVat ? 'incl' : 'excl';
+				const priceType = isIncludingTax ? 'incl' : 'excl';
 
 				return `
             <span class="wts-price-${ priceType } ${ visibilityClass }">
@@ -59,8 +59,8 @@ class TaxSwitchElementBuilder {
 
 			template += `
          <span class="wts-price-wrapper">
-            ${ createTextElement( vatTexts.including, true ) }
-            ${ createTextElement( vatTexts.excluding, false ) }
+            ${ createTextElement( taxTexts.including, true ) }
+            ${ createTextElement( taxTexts.excluding, false ) }
          </span>
       `;
 		}
@@ -84,17 +84,18 @@ class TaxSwitchElementBuilder {
 		};
 	}
 
-	static getVatTexts( existingWrapper = null ) {
+	static getTaxTexts( existingWrapper = null ) {
 		const space = document.createTextNode( ' ' ).nodeValue;
 		let $includingText, $excludingText;
 
 		if ( window.wtsCompatibilityObject ) {
-			if (
-				window.wtsCompatibilityObject.includingVatText &&
-				window.wtsCompatibilityObject.excludingVatText
-			) {
-				$includingText = window.wtsCompatibilityObject.includingVatText;
-				$excludingText = window.wtsCompatibilityObject.excludingVatText;
+			$includingText =
+				window.wtsCompatibilityObject.includingTaxText ||
+				window.wtsCompatibilityObject.includingVatText;
+			$excludingText =
+				window.wtsCompatibilityObject.excludingTaxText ||
+				window.wtsCompatibilityObject.excludingVatText;
+			if ( $includingText && $excludingText ) {
 				return {
 					including:
 						space +
@@ -144,19 +145,19 @@ class TaxSwitchElementBuilder {
 		};
 	}
 
-	static getVatTextElement(
-		displayIncludingVat,
+	static getTaxTextElement(
+		displayIncludingTax,
 		includingText,
 		excludingText
 	) {
 		return `<span class="wts-price-wrapper">
                     <span class="wts-price-incl ${
-						displayIncludingVat ? 'wts-active' : 'wts-inactive'
+						displayIncludingTax ? 'wts-active' : 'wts-inactive'
 					}">
                         ${ includingText }
                     </span>
                     <span class="wts-price-excl ${
-						! displayIncludingVat ? 'wts-active' : 'wts-inactive'
+						! displayIncludingTax ? 'wts-active' : 'wts-inactive'
 					}">
                           ${ excludingText }
                     </span>

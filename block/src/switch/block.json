@@ -2,11 +2,11 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "wdevs/tax-switch",
-	"version": "1.7.0",
+	"version": "1.8.0",
 	"title": "Tax Switch for WooCommerce",
 	"category": "woocommerce",
 	"icon": "money-alt",
-	"description": "Switch for toggling VAT prices.",
+	"description": "Switch for toggling tax prices.",
 	"supports": {
 		"html": false
 	},

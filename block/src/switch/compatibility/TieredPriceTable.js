@@ -7,7 +7,7 @@ class TieredPriceTable {
 		this.originalTaxDisplay = originalTaxDisplay;
 		this.isInclTaxDisplay = originalTaxDisplay === 'incl';
 		this.priceBackups = new Map(); // Store backups for multiple elements
-		this.vatTexts = null;
+		this.taxTexts = null;
 	}
 
 	init() {
@@ -143,7 +143,7 @@ class TieredPriceTable {
 		}
 
 		const vm = this;
-		const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+		const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 			vm.originalTaxDisplay
 		);
 		const showOriginalPrice = vm.shouldShowOriginalPrice( data );
@@ -182,7 +182,7 @@ class TieredPriceTable {
 			}
 			$container.html(
 				vm.getWtsHtml(
-					displayIncludingVat,
+					displayIncludingTax,
 					current,
 					alternate,
 					true,
@@ -192,7 +192,7 @@ class TieredPriceTable {
 			);
 		} );
 
-		vm.updateSummaryTable( data, displayIncludingVat );
+		vm.updateSummaryTable( data, displayIncludingTax );
 
 		TaxSwitchHelper.setPriceClasses( vm.originalTaxDisplay );
 	}
@@ -229,7 +229,7 @@ class TieredPriceTable {
 					( alternatePrice / data.price );
 	}
 
-	updateSummaryTable( data, displayIncludingVat ) {
+	updateSummaryTable( data, displayIncludingTax ) {
 		const vm = this;
 		const summaryTable = vm.getSummaryTable( data.parentId );
 		if ( ! summaryTable || ! summaryTable.length ) {
@@ -239,14 +239,14 @@ class TieredPriceTable {
 		const alternatePrice = vm.getAlternatePrice( data );
 
 		const productPriceHtml = vm.getWtsHtml(
-			displayIncludingVat,
+			displayIncludingTax,
 			data.__instance.formatting.formatPrice( data.price ),
 			data.__instance.formatting.formatPrice( alternatePrice ),
 			true
 		);
 
 		const totalHtml = vm.getWtsHtml(
-			displayIncludingVat,
+			displayIncludingTax,
 			data.__instance.formatting.formatPrice(
 				data.price * data.quantity
 			),
@@ -257,7 +257,7 @@ class TieredPriceTable {
 		);
 
 		const totalWithTaxHtml = vm.getWtsHtml(
-			displayIncludingVat,
+			displayIncludingTax,
 			data.__instance.formatting.formatPrice(
 				data.price * data.quantity
 			),
@@ -275,7 +275,7 @@ class TieredPriceTable {
 				false
 			);
 			oldPriceHtml = vm.getWtsHtml(
-				displayIncludingVat,
+				displayIncludingTax,
 				data.__instance.formatting.formatPrice( regularPrice ),
 				data.__instance.formatting.formatPrice( alternateRegularPrice ),
 				false
@@ -320,9 +320,9 @@ class TieredPriceTable {
 	}
 
 	getWtsHtml(
-		displayIncludingVat,
-		tieredVatHTML,
-		tieredAlternateVatHTML,
+		displayIncludingTax,
+		tieredTaxHTML,
+		tieredAlternateTaxHTML,
 		setText = false,
 		originalPriceHTML = null,
 		originalPriceAlternateHTML = null
@@ -338,8 +338,8 @@ class TieredPriceTable {
 
 		// If original tax display is exclusive, we need to switch the order of the prices
 		const [ inclPrice, exclPrice ] = vm.isInclTaxDisplay
-			? [ tieredVatHTML, tieredAlternateVatHTML ]
-			: [ tieredAlternateVatHTML, tieredVatHTML ];
+			? [ tieredTaxHTML, tieredAlternateTaxHTML ]
+			: [ tieredAlternateTaxHTML, tieredTaxHTML ];
 
 		const [ inclOriginalPrice, exclOriginalPrice ] = vm.isInclTaxDisplay
 			? [ originalPriceHTML, originalPriceAlternateHTML ]
@@ -348,12 +348,12 @@ class TieredPriceTable {
 		const priceSection = `
         <span class="wts-price-wrapper">
             <span class="wts-price-incl ${
-				displayIncludingVat ? 'wts-active' : 'wts-inactive'
+				displayIncludingTax ? 'wts-active' : 'wts-inactive'
 			}">
                 ${ getPriceHtml( inclPrice, inclOriginalPrice ) }
             </span>
             <span class="wts-price-excl ${
-				! displayIncludingVat ? 'wts-active' : 'wts-inactive'
+				! displayIncludingTax ? 'wts-active' : 'wts-inactive'
 			}">
                 ${ getPriceHtml( exclPrice, exclOriginalPrice ) }
             </span>
@@ -361,15 +361,15 @@ class TieredPriceTable {
     `;
 
 		if ( setText ) {
-			if ( ! vm.vatTexts ) {
-				vm.vatTexts = TaxSwitchElementBuilder.getVatTexts();
+			if ( ! vm.taxTexts ) {
+				vm.taxTexts = TaxSwitchElementBuilder.getTaxTexts();
 			}
 
-			if ( vm.vatTexts ) {
-				const textSection = TaxSwitchElementBuilder.getVatTextElement(
-					displayIncludingVat,
-					vm.vatTexts.including,
-					vm.vatTexts.excluding
+			if ( vm.taxTexts ) {
+				const textSection = TaxSwitchElementBuilder.getTaxTextElement(
+					displayIncludingTax,
+					vm.taxTexts.including,
+					vm.taxTexts.excluding
 				);
 
 				return `

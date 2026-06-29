@@ -13,7 +13,7 @@ class KapeeTheme {
 
 	init() {
 		const vm = this;
-		vm.vatTexts = TaxSwitchElementBuilder.getVatTexts();
+		vm.taxTexts = TaxSwitchElementBuilder.getTaxTexts();
 		vm.extendOriginalFunctions();
 	}
 
@@ -34,7 +34,7 @@ class KapeeTheme {
 			symbol,
 			woo_price_format
 		) {
-			const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+			const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 				vm.originalTaxDisplay
 			);
 
@@ -66,10 +66,10 @@ class KapeeTheme {
 			);
 
 			return vm.taxSwitchElementBuilder.build(
-				displayIncludingVat,
+				displayIncludingTax,
 				originalPriceDisplay,
 				alternatePriceDisplay,
-				vm.vatTexts
+				vm.taxTexts
 			);
 		}.bind( this );
 	}

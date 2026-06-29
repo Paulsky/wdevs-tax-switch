@@ -2,11 +2,11 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "wdevs/tax-switch-label",
-	"version": "1.7.0",
+	"version": "1.8.0",
 	"title": "Tax Switch text label",
 	"category": "woocommerce",
 	"icon": "tag",
-	"description": "Show text label whether prices include or exclude VAT.",
+	"description": "Show text label whether prices include or exclude tax.",
 	"example": {},
 	"supports": {
 		"html": false

@@ -93,12 +93,12 @@ class WoocommerceTmExtraProductOptions {
 			alternateFormattedPrice = alternatePrice.toFixed( 2 );
 		}
 
-		const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+		const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 			this.originalTaxDisplay
 		);
 
 		const template = this.taxSwitchElementBuilder.build(
-			displayIncludingVat,
+			displayIncludingTax,
 			formattedPrice,
 			alternateFormattedPrice,
 			null

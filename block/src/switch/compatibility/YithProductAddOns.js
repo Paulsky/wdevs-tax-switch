@@ -17,7 +17,7 @@ class YithProductAddOns {
 				window.yith_wapo.replace_product_price_class
 			).clone();
 		}
-		this.vatTexts = null;
+		this.taxTexts = null;
 		this.taxSwitchElementBuilder = new TaxSwitchElementBuilder(
 			this.originalTaxDisplay
 		);
@@ -192,19 +192,19 @@ class YithProductAddOns {
 		const vm = this;
 		let texts = null;
 		if ( setText ) {
-			if ( ! vm.vatTexts ) {
-				vm.vatTexts = TaxSwitchElementBuilder.getVatTexts(
+			if ( ! vm.taxTexts ) {
+				vm.taxTexts = TaxSwitchElementBuilder.getTaxTexts(
 					vm.initialPriceElement
 				);
 			}
 
-			texts = vm.vatTexts;
+			texts = vm.taxTexts;
 		}
-		const displayIncludingVat = TaxSwitchHelper.displayIncludingVat(
+		const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 			this.originalTaxDisplay
 		);
 		const template = vm.taxSwitchElementBuilder.build(
-			displayIncludingVat,
+			displayIncludingTax,
 			originalPrice,
 			alternatePrice,
 			texts

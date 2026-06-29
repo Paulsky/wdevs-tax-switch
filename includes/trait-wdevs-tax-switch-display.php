@@ -4,7 +4,7 @@
  * Handles all display-related functionality for the Tax Switch plugin.
  *
  * Provides methods for formatting and displaying prices with tax toggling functionality.
- * This includes combining price displays and wrapping prices with VAT indicators.
+ * This includes combining price displays and wrapping prices with tax indicators.
  *
  * @package    Wdevs_Tax_Switch
  * @subpackage Wdevs_Tax_Switch/includes
@@ -14,7 +14,7 @@
 trait Wdevs_Tax_Switch_Display {
 
 	/**
-	 * Combines both price displays (incl. and excl. VAT) into a toggleable HTML structure
+	 * Combines both price displays (incl. and excl. tax) into a toggleable HTML structure
 	 *
 	 * @param string $current_price_text The formatted current price HTML
 	 * @param string $alternate_price_text The formatted alternate price HTML
@@ -40,14 +40,14 @@ trait Wdevs_Tax_Switch_Display {
 	}
 
 	/**
-	 * Wraps price displays with VAT indicator text in a toggleable structure
+	 * Wraps price displays with tax indicator text in a toggleable structure
 	 *
 	 * @param string $price_html The original price HTML
 	 * @param bool $shop_prices_include_tax Whether shop prices include tax
-	 * @param string $vat_text Text for VAT included state
-	 * @param string $alternate_vat_text Text for VAT excluded state
+	 * @param string $vat_text Text for tax-included state
+	 * @param string $alternate_vat_text Text for tax-excluded state
 	 *
-	 * @return string Price HTML wrapped with VAT indicators
+	 * @return string Price HTML wrapped with tax indicators
 	 * @since 1.4.1
 	 *
 	 */

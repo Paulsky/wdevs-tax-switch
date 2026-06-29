@@ -336,7 +336,7 @@ class Wdevs_Tax_Switch {
 				);
 			}
 
-			// FacetWP - Add VAT label to price sliders
+			// FacetWP - Add tax label to price sliders
 			if ( $this->is_plugin_active( 'facetwp/index.php' ) ) {
 				$this->loader->add_filter(
 					'facetwp_facet_render_args',
