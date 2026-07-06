@@ -98,8 +98,11 @@ class Wdevs_Tax_Switch_Compatibility {
 				);
 			}
 
-			// Advanced Product Fields Pro for WooCommerce
-			if ( $this->is_plugin_active( 'advanced-product-fields-for-woocommerce-pro/advanced-product-fields-for-woocommerce-pro.php' ) ) {
+			// Advanced Product Fields Pro/Extended for WooCommerce
+			if ( $this->is_any_plugin_active( [
+				'advanced-product-fields-for-woocommerce-pro/advanced-product-fields-for-woocommerce-pro.php',
+				'advanced-product-fields-for-woocommerce-extended/advanced-product-fields-for-woocommerce-extended.php'
+			] ) ) {
 				$apffw_handle = 'wdevs-tax-switch-advanced-product-fields-for-woocommerce';
 				$apffw_asset  = $this->enqueue_script( $apffw_handle, 'switch', 'advanced-product-fields-for-woocommerce', [
 					'wapf-frontend',

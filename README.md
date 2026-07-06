@@ -2,6 +2,8 @@
 
 Enhances WooCommerce by allowing users to toggle between displaying prices including or excluding tax. This plugin adds a customizable switch component and provides a flexible way to display both price versions.
 
+> **See Tax Switch for WooCommerce in action:** [Try the live demo →](https://wordpress.org/plugins/tax-switch-for-woocommerce/?preview=1)
+
 <br/>
 <img src="https://github.com/user-attachments/assets/a76b1145-b4c2-4ff8-83c1-2d721caefaa7" width="300" alt="Tax Switch for WooCommerce demo" style="max-width: 300px !important; height: auto !important;" />
 <br/>
@@ -172,10 +174,10 @@ if ( window.wdevsTaxSwitch && ! window.wdevsTaxSwitch.hasSavedChoice() ) {
 ```
 
 API methods:
-- `hasSavedChoice()`: returns whether the visitor already has a saved switch choice.
 - `getDisplay()`: returns the current display, either `'incl'` or `'excl'`.
-- `refresh()`: reapplies the current display.
 - `setDisplay( display, options )`: changes the display to `'incl'` or `'excl'`.
+- `hasSavedChoice()`: returns whether the visitor already has a saved switch choice.
+- `refresh()`: reapplies the current display.
 - `toggle( options )`: toggles between inclusive and exclusive tax display.
 
 Options:
@@ -247,7 +249,7 @@ This plugin is tested and compatible with the following:
 - JetEngine Listing Grid (Elementor)
 - Product Add-Ons for WooCommerce
 - B2BKing – Ultimate WooCommerce Wholesale and B2B Solution (+ Premium)
-- Advanced Product Fields Pro for WooCommerce
+- Advanced Product Fields Pro/Extended for WooCommerce
 - WooCommerce Quantity Discounts, Rules & Swatches
 - FacetWP
 - Variation Swatches for WooCommerce (+ PRO)

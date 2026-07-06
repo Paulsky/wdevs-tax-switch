@@ -24,7 +24,9 @@ class AdvancedProductFieldsForWoocommerce {
 					return;
 				}
 
-				const taxFactor = productElement.data( 'taxFactor' );
+				const taxFactor =
+					productElement.data( 'taxFactor' ) ||
+					productElement.data( 'tax' );
 				if ( ! taxFactor || taxFactor <= 1 ) {
 					return;
 				}
@@ -94,11 +96,14 @@ class AdvancedProductFieldsForWoocommerce {
 					return hint;
 				}
 
-				const taxElement =
-					document.querySelector( '[data-tax-factor]' );
-				const taxFactor = taxElement ? taxElement.dataset.taxFactor : 1;
+				const taxElement = document.querySelector(
+					'.wapf-product-totals[data-tax-factor], .wapf-product-totals[data-tax]'
+				);
+				const taxFactor = taxElement
+					? taxElement.dataset.taxFactor || taxElement.dataset.tax
+					: 1;
 				if ( ! taxFactor || taxFactor <= 1 ) {
-					return;
+					return hint;
 				}
 
 				//brackets become negative 'replace bracketed values with negatives'

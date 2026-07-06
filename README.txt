@@ -3,7 +3,7 @@ Contributors: wijnbergdevelopments
 Tags: woocommerce, tax, vat
 Requires at least: 5.0
 Tested up to: 7.0
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 Requires PHP: 7.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -12,6 +12,8 @@ Let customers toggle between inclusive and exclusive tax pricing in your WooComm
 
 == Description ==
 Tax Switch for WooCommerce enhances your WooCommerce store by allowing users to toggle between displaying prices including or excluding tax. This plugin adds a customizable switch component and provides a flexible way to display both price versions.
+
+> **See Tax Switch for WooCommerce in action:** [Try the live demo →](https://wordpress.org/plugins/tax-switch-for-woocommerce/?preview=1)
 
 === Key features ===
 
@@ -152,10 +154,10 @@ if ( window.wdevsTaxSwitch && ! window.wdevsTaxSwitch.hasSavedChoice() ) {
 `
 
 API methods:
-* `hasSavedChoice()`: returns whether the visitor already has a saved switch choice.
 * `getDisplay()`: returns the current display, either `'incl'` or `'excl'`.
-* `refresh()`: reapplies the current display.
 * `setDisplay( display, options )`: changes the display to `'incl'` or `'excl'`.
+* `hasSavedChoice()`: returns whether the visitor already has a saved switch choice.
+* `refresh()`: reapplies the current display.
 * `toggle( options )`: toggles between inclusive and exclusive tax display.
 
 Options:
@@ -232,7 +234,7 @@ The following plugins have been tested and confirmed compatible:
 * JetEngine Listing Grid (Elementor)
 * Product Add-Ons for WooCommerce
 * B2BKing – Ultimate WooCommerce Wholesale and B2B Solution (+ Premium)
-* Advanced Product Fields Pro for WooCommerce
+* Advanced Product Fields Pro/Extended for WooCommerce
 * WooCommerce Quantity Discounts, Rules & Swatches
 * FacetWP
 * Variation Swatches for WooCommerce (+ PRO)
@@ -288,6 +290,11 @@ The plugin is designed to keep prices consistent in the cart and checkout proces
 
 
 == Changelog ==
+= 1.8.1 =
+* Added `blueprint.json` for an interactive WordPress Playground demo
+* Fixed tax display in mini cart after WooCommerce refreshes cart fragments
+* Added compatibility for Advanced Product Fields Extended for WooCommerce
+
 = 1.8.0 =
 * Added `refresh()` to the public JavaScript API for reapplying the current tax display
 * Standardized "VAT" terminology to "tax" across text, documentation and code

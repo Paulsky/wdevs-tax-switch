@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to the Tax Switch for WooCommerce plugin will be documented in this file.
 
+## [1.8.1] - 2026-07-06
+### Added
+- `blueprint.json` for an interactive WordPress Playground demo
+- Compatibility for Advanced Product Fields Extended for WooCommerce
+### Updated
+- Fixed tax display in mini cart after WooCommerce refreshes cart fragments
+
 ## [1.8.0] - 2026-06-29
 ### Added
 - `refresh()` to the public JavaScript API for reapplying the current tax display

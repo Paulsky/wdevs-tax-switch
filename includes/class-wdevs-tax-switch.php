@@ -314,8 +314,11 @@ class Wdevs_Tax_Switch {
 				);
 			}
 
-			// Advanced Product Fields Pro for WooCommerce
-			if ( $this->is_plugin_active( 'advanced-product-fields-for-woocommerce-pro/advanced-product-fields-for-woocommerce-pro.php' ) ) {
+			// Advanced Product Fields Pro/Extended for WooCommerce
+			if ( $this->is_any_plugin_active( [
+				'advanced-product-fields-for-woocommerce-pro/advanced-product-fields-for-woocommerce-pro.php',
+				'advanced-product-fields-for-woocommerce-extended/advanced-product-fields-for-woocommerce-extended.php'
+			] ) ) {
 				$this->loader->add_filter(
 					'wapf/html/pricing_hint',
 					$plugin_compatibility,

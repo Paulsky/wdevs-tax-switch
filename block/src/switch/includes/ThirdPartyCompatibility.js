@@ -50,7 +50,8 @@ class ThirdPartyCompatibility {
 			'flatsome-infiniteScroll-append', //Flatsome theme compatibility,
 			'vpd_after_price_fadein', //Variation Price Display Range for WooCommerce
 			'awsShowingResults', //Advanced Woo Search compatibility
-			'wc_fragments_loaded', //WooCommerce cart fragments (for prices in menus or mini carts)
+			'wc_fragments_loaded', //WooCommerce cart fragments loaded from cache or cart response
+			'wc_fragments_refreshed', //WooCommerce cart fragments refreshed via AJAX
 			'pjax:success', //PJAX compatibility (WoodMart and other themes using jquery-pjax)
 			'fibosearch/show-suggestions', //FiboSearch - AJAX Search for WooCommerce compatibility
 			'wc_price_based_country_after_ajax_geolocation', // WooCommerce Price Based on Country compatibility
