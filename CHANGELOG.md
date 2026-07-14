@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to the Tax Switch for WooCommerce plugin will be documented in this file.
 
+## [1.8.2] - 2026-07-14
+### Updated
+- Improved compatibility for Advanced Product Fields Extended for WooCommerce
+- Improved `blueprint.json`
+
 ## [1.8.1] - 2026-07-06
 ### Added
 - `blueprint.json` for an interactive WordPress Playground demo

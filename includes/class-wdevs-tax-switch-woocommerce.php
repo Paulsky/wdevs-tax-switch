@@ -63,9 +63,23 @@ class Wdevs_Tax_Switch_Woocommerce {
 
 		$this->current_section = isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) : '';
 
-		if ( is_admin() && isset( $_GET['page'] ) && $_GET['page'] === 'wc-settings' && isset( $_GET['tab'] ) && $_GET['tab'] === 'wdevs_tax_switch' ) {
+		if ( self::is_settings_page() ) {
 			$this->handle_sections();
 		}
+	}
+
+	/**
+	 * Check if the current admin screen is the Tax Switch WooCommerce settings tab.
+	 *
+	 * @since 1.8.3
+	 */
+	public static function is_settings_page() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		return is_admin()
+			&& isset( $_GET['page'], $_GET['tab'] )
+			&& 'wc-settings' === $_GET['page']
+			&& 'wdevs_tax_switch' === $_GET['tab'];
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -214,21 +228,6 @@ class Wdevs_Tax_Switch_Woocommerce {
 		<?php
 
 		echo '</ul><br class="clear" />';
-	}
-
-	/**
-	 * Output footer info
-	 *
-	 * @since    1.5.7
-	 */
-	public function render_footer_info() {
-		$text = sprintf(
-		/* translators: %s: Link to author site. */
-			__( 'Tax Switch for WooCommerce is developed by %s. Your trusted WordPress & WooCommerce plugin partner from the Netherlands.', 'tax-switch-for-woocommerce' ),
-			'<a href="https://products.wijnberg.dev" target="_blank" rel="noopener">Wijnberg Developments</a>'
-		);
-
-		echo '<span style="padding: 0 30px; background: #f0f0f1; display: block;">' . wp_kses_post( $text ) . '</span>';
 	}
 
 	/**

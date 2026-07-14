@@ -33,7 +33,7 @@ class Wdevs_Tax_Switch_Activator {
 		if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 			deactivate_plugins( plugin_basename( __FILE__ ) );
 
-			wp_die( __( 'This plugin requires WooCommerce. Please install and activate WooCommerce before activating this plugin.', 'tax-switch-for-woocommerce' ) );
+			wp_die( esc_html__( 'This plugin requires WooCommerce. Please install and activate WooCommerce before activating this plugin.', 'tax-switch-for-woocommerce' ) );
 		}
 	}
 

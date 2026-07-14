@@ -8,9 +8,11 @@ class AdvancedProductFieldsForWoocommerce {
 		this.taxSwitchElementBuilder = new TaxSwitchElementBuilder(
 			this.originalTaxDisplay
 		);
+		this.taxTexts = null;
 	}
 
 	init() {
+		this.taxTexts = TaxSwitchElementBuilder.getTaxTexts();
 		this.registerWooCommerceEvents();
 		this.registerFilters();
 	}
@@ -31,55 +33,60 @@ class AdvancedProductFieldsForWoocommerce {
 					return;
 				}
 
-				const taxRateAsPercentage = ( taxFactor - 1 ) * 100;
+				if (
+					! window.WAPF ||
+					! window.WAPF.Pricing ||
+					! window.WAPF.Pricing.addTax
+				) {
+					return;
+				}
+
+				// Advanced Product Fields Extended for WooCommerce 3.2.1 updates
+				// calc fields/dependencies after the first wapf/pricing event. The
+				// event totals can be stale on page load until WAPF calculates again.
+				if ( vm.maybeRecalculateInitialPricing( productElement ) ) {
+					return;
+				}
+
+				const alternateTaxDisplay =
+					vm.originalTaxDisplay === 'incl' ? 'excl' : 'incl';
 				const displayIncludingTax = TaxSwitchHelper.displayIncludingTax(
 					vm.originalTaxDisplay
 				);
 
-				jQuery( '.wapf-product-total' ).html(
-					vm.taxSwitchElementBuilder.build(
-						displayIncludingTax,
-						vm.formatPrice( productTotal ),
-						vm.formatPrice(
-							TaxSwitchHelper.calculateAlternatePrice(
-								productTotal,
-								vm.originalTaxDisplay,
-								taxRateAsPercentage
-							)
-						),
-						null
-					)
-				);
+				const buildTotal = ( amount ) => {
+					const originalPrice = window.WAPF.Pricing.addTax(
+						amount,
+						taxFactor,
+						null,
+						vm.originalTaxDisplay
+					);
+					const alternatePrice = window.WAPF.Pricing.addTax(
+						amount,
+						taxFactor,
+						null,
+						alternateTaxDisplay
+					);
 
-				jQuery( '.wapf-options-total' ).html(
-					vm.taxSwitchElementBuilder.build(
+					return vm.taxSwitchElementBuilder.build(
 						displayIncludingTax,
-						vm.formatPrice( optionsTotal ),
-						vm.formatPrice(
-							TaxSwitchHelper.calculateAlternatePrice(
-								optionsTotal,
-								vm.originalTaxDisplay,
-								taxRateAsPercentage
-							)
-						),
-						null
-					)
-				);
+						vm.formatPrice( originalPrice ),
+						vm.formatPrice( alternatePrice ),
+						vm.taxTexts
+					);
+				};
 
-				jQuery( '.wapf-grand-total' ).html(
-					vm.taxSwitchElementBuilder.build(
-						displayIncludingTax,
-						vm.formatPrice( grandTotal ),
-						vm.formatPrice(
-							TaxSwitchHelper.calculateAlternatePrice(
-								grandTotal,
-								vm.originalTaxDisplay,
-								taxRateAsPercentage
-							)
-						),
-						null
-					)
-				);
+				productElement
+					.find( '.wapf-product-total' )
+					.html( buildTotal( productTotal ) );
+
+				productElement
+					.find( '.wapf-options-total' )
+					.html( buildTotal( optionsTotal ) );
+
+				productElement
+					.find( '.wapf-grand-total' )
+					.html( buildTotal( grandTotal ) );
 			}
 		);
 	}
@@ -158,6 +165,24 @@ class AdvancedProductFieldsForWoocommerce {
 			);
 		}
 		return amount;
+	}
+
+	maybeRecalculateInitialPricing( productElement ) {
+		if (
+			productElement.data( 'wtsWapfInitialPricingRecalculated' ) ||
+			! window.WAPF?.Pricing?.calculateAll
+		) {
+			return false;
+		}
+
+		productElement.data( 'wtsWapfInitialPricingRecalculated', true );
+
+		setTimeout(
+			() => window.WAPF.Pricing.calculateAll( productElement ),
+			0
+		);
+
+		return true;
 	}
 }
 

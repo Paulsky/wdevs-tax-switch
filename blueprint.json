@@ -36,7 +36,7 @@
 		{
 			"step": "writeFile",
 			"path": "/wordpress/wp-content/mu-plugins/tax-switch-for-woocommerce-demo.php",
-			"data": "<?php\n$get_tax_switch = function () {\n\treturn do_shortcode( '[wdevs_tax_switch switch-label-incl=\"Incl. VAT\" switch-label-excl=\"Excl. VAT\" switch-aria-label=\"Switch between prices including and excluding tax\"]' );\n};\nadd_action( 'woocommerce_before_shop_loop', function () use ( $get_tax_switch ) {\n\techo $get_tax_switch();\n}, 5 );\nadd_action( 'woocommerce_single_product_summary', function () use ( $get_tax_switch ) {\n\techo $get_tax_switch();\n}, 15 );\nadd_filter( 'get_pages_query_args', function ( $args ) {\n\tif ( ! is_admin() ) {\n\t\t$sample_page = get_page_by_path( 'sample-page' );\n\t\t$args['post__not_in'] = array_merge( $args['post__not_in'] ?? array(), array_map( 'intval', array( get_option( 'woocommerce_cart_page_id' ), get_option( 'woocommerce_checkout_page_id' ), get_option( 'woocommerce_myaccount_page_id' ), $sample_page ? $sample_page->ID : 0 ) ) );\n\t}\n\treturn $args;\n} );\nadd_action( 'wp_body_open', function () {\n\techo '<aside role=\"complementary\" aria-label=\"Tax Switch for WooCommerce\" style=\"box-sizing:border-box;width:100%;padding:.75rem 1rem;text-align:center;background:#1e1e1e;color:#fff\">👋 Questions or want to learn more? <a href=\"https://products.wijnberg.dev/product/wordpress/plugins/tax-switch-for-woocommerce/\" style=\"color:inherit;font-weight:600\">Explore Tax Switch for WooCommerce →</a></aside>';\n} );\n"
+			"data": "<?php\n$get_tax_switch = function () {\n\treturn do_shortcode( '[wdevs_tax_switch switch-label-incl=\"Incl. VAT\" switch-label-excl=\"Excl. VAT\" switch-aria-label=\"Switch between prices including and excluding tax\"]' );\n};\nadd_action( 'woocommerce_before_shop_loop', function () use ( $get_tax_switch ) {\n\techo $get_tax_switch();\n}, 5 );\nadd_action( 'woocommerce_single_product_summary', function () use ( $get_tax_switch ) {\n\techo $get_tax_switch();\n}, 15 );\nadd_filter( 'get_pages_query_args', function ( $args ) {\n\tif ( ! is_admin() ) {\n\t\t$sample_page = get_page_by_path( 'sample-page' );\n\t\t$args['post__not_in'] = array_merge( $args['post__not_in'] ?? array(), array_map( 'intval', array( get_option( 'woocommerce_cart_page_id' ), get_option( 'woocommerce_checkout_page_id' ), get_option( 'woocommerce_myaccount_page_id' ), $sample_page ? $sample_page->ID : 0 ) ) );\n\t}\n\treturn $args;\n} );\nadd_action( 'wp_body_open', function () {\n\techo '<aside role=\"complementary\" aria-label=\"Tax Switch for WooCommerce\" style=\"box-sizing:border-box;width:100%;padding:.75rem 1rem;text-align:center;background:#1e1e1e;color:#fff\">👋 Questions or want to learn more? <a href=\"https://products.wijnberg.dev/product/wordpress/plugins/tax-switch-for-woocommerce/\" style=\"color:inherit;font-weight:600\">Explore Tax Switch for WooCommerce →</a><small style=\"display:block;margin-top:.25rem;opacity:.75\">Looking for the settings? <a href=\"/wp-admin/admin.php?page=wc-settings&amp;tab=wdevs_tax_switch\" style=\"color:inherit\">Open them here →</a></small></aside>';\n} );\n"
 		},
 		{
 			"step": "setSiteOptions",
@@ -48,9 +48,16 @@
 				"woocommerce_tax_based_on": "base",
 				"woocommerce_default_customer_address": "base",
 				"woocommerce_allow_tracking": "no",
+				"woocommerce_onboarding_profile": {
+					"skipped": true
+				},
 				"woocommerce_coming_soon": "no",
 				"permalink_structure": "/%postname%/"
 			}
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp transient delete _wc_activation_redirect"
 		},
 		{
 			"step": "importWxr",

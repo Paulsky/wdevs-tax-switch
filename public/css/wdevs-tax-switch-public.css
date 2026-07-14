@@ -1,11 +1,18 @@
+/* Compatibility for WooCommerce Measurement Price Calculator */
 .wc-measurement-price-calculator-price .wts-vat-text{
 	display: none;
 }
+/* Compatibility for Tiered Pricing Table */
 .tiered-pricing--active .wts-vat-text{
 	color: #ffffff;
 }
+/* Compatibility for Product Extras for WooCommerce */
 h4.pewc-field-label .wts-price-wrapper > span, h4.pewc-field-label .wts-price-wrapper > span > span{
 	font-size: 100%;
+}
+/* Compatibility for Advanced Product Fields for WooCommerce */
+.wapf-product-totals .wts-price-container, .wapf-product-totals .wts-price-container span {
+	float: none !important;
 }
 
 .wdevs-tax-switch-checkbox:disabled ~ .wdevs-tax-switch-slider {

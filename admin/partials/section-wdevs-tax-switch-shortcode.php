@@ -166,7 +166,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</form>
 				</article>
 				<footer>
-					<div class="inner" style="flex-direction: row;">
+					<div class="inner" style="flex-direction: row; background: #fff;">
 						<div style="text-align: left;">
 							<div class="wc-shipping-class-modal-input" style="padding-bottom: 0; font-size: 14px !important;">
 								<div class="view">
@@ -199,7 +199,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			document.execCommand('copy');
 
 			const originalText = copyText.value;
-			copyText.value = '<?php _e("Copied", "tax-switch-for-woocommerce"); ?>!';
+			copyText.value = '<?php echo esc_js( __( 'Copied', 'tax-switch-for-woocommerce' ) ); ?>!';
 			setTimeout(() => copyText.value = originalText, 1500);
 		});
 	});

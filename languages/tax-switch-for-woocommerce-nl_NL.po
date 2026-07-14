@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tax Switch for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-29 12:35+0200\n"
-"PO-Revision-Date: 2026-06-29 12:35+0200\n"
+"POT-Creation-Date: 2026-07-09 12:05+0200\n"
+"PO-Revision-Date: 2026-07-09 12:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -21,10 +21,37 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 
-#: admin/class-wdevs-tax-switch-admin.php:138
-#: includes/class-wdevs-tax-switch-woocommerce.php:169
+#: admin/class-wdevs-tax-switch-admin.php:146
+#: includes/class-wdevs-tax-switch-woocommerce.php:183
 msgid "Settings"
 msgstr "Instellingen"
+
+#: admin/class-wdevs-tax-switch-admin.php:176
+msgid "Thank you for using Tax Switch for WooCommerce."
+msgstr ""
+"Bedankt voor het gebruiken van de btw-schakelaar voor Woocommerce plugin."
+
+#. translators: 1: Tax Switch for WooCommerce 2: five stars
+#: admin/class-wdevs-tax-switch-admin.php:181
+#, php-format
+msgid ""
+"If you like %1$s please leave us a %2$s rating. A huge thanks in advance!"
+msgstr ""
+"Als je %1$s goed vindt, geef ons dan een beoordeling van %2$s. Bij voorbaat "
+"hartelijk dank!"
+
+#. Plugin Name of the plugin/theme
+#: admin/class-wdevs-tax-switch-admin.php:182
+msgid "Tax Switch for WooCommerce"
+msgstr "Btw-schakelaar voor Woocommerce"
+
+#: admin/class-wdevs-tax-switch-admin.php:183
+msgid "five star"
+msgstr "vijf sterren"
+
+#: admin/class-wdevs-tax-switch-admin.php:183
+msgid "Thanks :)"
+msgstr "Bedankt :)"
 
 #: admin/partials/section-wdevs-tax-switch-shortcode.php:19
 msgid "Tax switch shortcode"
@@ -126,7 +153,7 @@ msgstr "Label inclusief btw"
 #: block/src/switch/components/SwitchComponent.js:187
 #: includes/class-wdevs-tax-switch-block-label.php:64
 #: includes/class-wdevs-tax-switch-block-label.php:82
-#: includes/class-wdevs-tax-switch-woocommerce.php:253
+#: includes/class-wdevs-tax-switch-woocommerce.php:252
 #: includes/trait-wdevs-tax-switch-helper.php:494
 msgid "Incl. VAT"
 msgstr "Incl. btw"
@@ -140,7 +167,7 @@ msgstr "Label exclusief btw"
 #: block/src/switch/components/SwitchComponent.js:198
 #: includes/class-wdevs-tax-switch-block-label.php:65
 #: includes/class-wdevs-tax-switch-block-label.php:83
-#: includes/class-wdevs-tax-switch-woocommerce.php:260
+#: includes/class-wdevs-tax-switch-woocommerce.php:259
 #: includes/trait-wdevs-tax-switch-helper.php:497
 msgid "Excl. VAT"
 msgstr "Excl. btw"
@@ -219,72 +246,62 @@ msgstr ""
 "Deze plugin vereist WooCommerce. Installeer en activeer WooCommerce voordat "
 "u deze plugin activeert."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:91
+#: includes/class-wdevs-tax-switch-woocommerce.php:105
 msgid "Tax switch"
 msgstr "Btw-schakelaar"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:170
+#: includes/class-wdevs-tax-switch-woocommerce.php:184
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:201
+#: includes/class-wdevs-tax-switch-woocommerce.php:215
 msgid "Documentation"
 msgstr "Documentatie"
 
-#. translators: %s: Link to author site.
-#: includes/class-wdevs-tax-switch-woocommerce.php:227
-#, php-format
-msgid ""
-"Tax Switch for WooCommerce is developed by %s. Your trusted WordPress & "
-"WooCommerce plugin partner from the Netherlands."
-msgstr ""
-"Btw-schakelaar voor Woocommerce is ontwikkeld door %s. Uw betrouwbare "
-"WordPress & WooCommerce pluginpartner uit Nederland."
-
-#: includes/class-wdevs-tax-switch-woocommerce.php:243
+#: includes/class-wdevs-tax-switch-woocommerce.php:242
 msgid "Tax switch settings"
 msgstr "Btw-schakelaar instellingen"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:245
+#: includes/class-wdevs-tax-switch-woocommerce.php:244
 msgid "Customize the tax switch settings."
 msgstr "Pas de instellingen van de btw-schakelaar aan."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:249
+#: includes/class-wdevs-tax-switch-woocommerce.php:248
 msgid "Including tax text"
 msgstr "Tekst inclusief btw"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:251
+#: includes/class-wdevs-tax-switch-woocommerce.php:250
 msgid "Text to append to prices including tax."
 msgstr "Tekst om toe te voegen aan prijzen inclusief btw."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:256
+#: includes/class-wdevs-tax-switch-woocommerce.php:255
 msgid "Excluding tax text"
 msgstr "Tekst exclusief btw"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:258
+#: includes/class-wdevs-tax-switch-woocommerce.php:257
 msgid "Text to append to prices excluding tax."
 msgstr "Tekst om toe te voegen aan prijzen exclusief btw."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:271
+#: includes/class-wdevs-tax-switch-woocommerce.php:270
 msgid "Where enabled"
 msgstr "Waar ingeschakeld"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:276
-#: includes/class-wdevs-tax-switch-woocommerce.php:281
+#: includes/class-wdevs-tax-switch-woocommerce.php:275
+#: includes/class-wdevs-tax-switch-woocommerce.php:280
 msgid "On all pages"
 msgstr "Op alle pagina's"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:277
-#: includes/class-wdevs-tax-switch-woocommerce.php:282
+#: includes/class-wdevs-tax-switch-woocommerce.php:276
+#: includes/class-wdevs-tax-switch-woocommerce.php:281
 msgid "Only on WooCommerce pages"
 msgstr "Alleen op WooCommerce-pagina's"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:278
-#: includes/class-wdevs-tax-switch-woocommerce.php:283
+#: includes/class-wdevs-tax-switch-woocommerce.php:277
+#: includes/class-wdevs-tax-switch-woocommerce.php:282
 msgid "Only on pages displaying prices"
 msgstr "Alleen op pagina's met prijzen"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:280
+#: includes/class-wdevs-tax-switch-woocommerce.php:279
 msgid ""
 "WooCommerce pages include: product archives/categories, single product pages "
 "and account pages."
@@ -292,18 +309,18 @@ msgstr ""
 "WooCommerce-pagina's zijn: productarchieven/categorieën, individuele "
 "productpagina's en accountpagina's."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:281
+#: includes/class-wdevs-tax-switch-woocommerce.php:280
 msgid "On all pages where a Tax Switch block/shortcode is placed."
 msgstr "Op elke pagina waar een btw-schakelaar block/shortcode is geplaatst."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:282
+#: includes/class-wdevs-tax-switch-woocommerce.php:281
 msgid ""
 "Hidden on pages that are not part of the store. Stops rendering completely."
 msgstr ""
 "Verborgen op pagina's die niet onderdeel zijn van de webshop. Stopt het "
 "renderen volledig."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:283
+#: includes/class-wdevs-tax-switch-woocommerce.php:282
 msgid ""
 "Hidden on pages that do not display any prices. Renders, but hides the "
 "components (slightly slower)."
@@ -311,7 +328,7 @@ msgstr ""
 "Verborgen op pagina's die geen prijzen weergeven. Wordt gerenderd, maar "
 "verborgen (iets langzamer)."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:284
+#: includes/class-wdevs-tax-switch-woocommerce.php:283
 msgid ""
 "Tax Switch blocks/shortcodes are always hidden on the cart and checkout "
 "pages."
@@ -319,11 +336,11 @@ msgstr ""
 "Btw-schakelaar blocks/shortcodes zijn altijd verborgen op de winkelwagen- en "
 "afrekenpagina's."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:289
+#: includes/class-wdevs-tax-switch-woocommerce.php:288
 msgid "Price switching in mini cart"
 msgstr "Prijs aanpassingen in de mini winkelwagen"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:291
+#: includes/class-wdevs-tax-switch-woocommerce.php:290
 msgid ""
 "Allow customers to switch between prices including and excluding tax in the "
 "default WooCommerce mini cart."
@@ -331,7 +348,7 @@ msgstr ""
 "Geef klanten de mogelijkheid om te wisselen tussen prijzen inclusief en "
 "exclusief btw in de standaard WooCommerce mini-winkelwagen."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:292
+#: includes/class-wdevs-tax-switch-woocommerce.php:291
 msgid ""
 "By default, price switching is disabled in the mini cart to keep cart totals "
 "consistent. After changing this setting, empty the mini cart and reload to "
@@ -343,17 +360,13 @@ msgstr ""
 "het bijgewerkte gedrag te zien (de markup van de mini-winkelwagen wordt "
 "gecached)."
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:314
+#: includes/class-wdevs-tax-switch-woocommerce.php:313
 msgid "Shortcode settings"
 msgstr "Shortcode instellingen"
 
-#: includes/class-wdevs-tax-switch-woocommerce.php:316
+#: includes/class-wdevs-tax-switch-woocommerce.php:315
 msgid "Generate a tax switch shortcode."
 msgstr "Genereer een btw-schakelaar shortcode."
-
-#. Plugin Name of the plugin/theme
-msgid "Tax Switch for WooCommerce"
-msgstr "Btw-schakelaar voor Woocommerce"
 
 #. Plugin URI of the plugin/theme
 msgid "https://wijnberg.dev"
@@ -374,6 +387,14 @@ msgstr "Wijnberg Developments"
 #. Author URI of the plugin/theme
 msgid "https://wijnberg.dev/"
 msgstr "https://wijnberg.dev/"
+
+#, php-format
+#~ msgid ""
+#~ "Tax Switch for WooCommerce is developed by %s. Your trusted WordPress & "
+#~ "WooCommerce plugin partner from the Netherlands."
+#~ msgstr ""
+#~ "Btw-schakelaar voor Woocommerce is ontwikkeld door %s. Uw betrouwbare "
+#~ "WordPress & WooCommerce pluginpartner uit Nederland."
 
 #~ msgid "Toggle label text"
 #~ msgstr "Toggle-labeltekst"

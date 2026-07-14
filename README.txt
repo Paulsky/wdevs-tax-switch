@@ -1,9 +1,9 @@
 === Tax Switch for WooCommerce ===
 Contributors: wijnbergdevelopments
 Tags: woocommerce, tax, vat
-Requires at least: 5.0
+Requires at least: 6.1
 Tested up to: 7.0
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 Requires PHP: 7.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -290,6 +290,10 @@ The plugin is designed to keep prices consistent in the cart and checkout proces
 
 
 == Changelog ==
+= 1.8.2 =
+* Improved compatibility for Advanced Product Fields Extended for WooCommerce
+* Improved `blueprint.json`
+
 = 1.8.1 =
 * Added `blueprint.json` for an interactive WordPress Playground demo
 * Fixed tax display in mini cart after WooCommerce refreshes cart fragments

@@ -50,7 +50,17 @@ class Wdevs_Tax_Switch_Admin {
 	/**
 	 * @since 1.5.3
 	 */
-	const AJAX_ACTION_RENDER = 'render_by_request';
+	const AJAX_ACTION_RENDER = 'wdevs_tax_switch_render_by_request';
+
+	/**
+	 * @since 1.8.2
+	 */
+	const AJAX_ACTION_FOOTER_RATED = 'wdevs_tax_switch_footer_rated';
+
+	/**
+	 * @since 1.8.2
+	 */
+	const AJAX_NONCE_ACTION_FOOTER_RATED = 'wdevs-tax-switch-footer-rated-nonce';
 
 
 	/**
@@ -103,7 +113,9 @@ class Wdevs_Tax_Switch_Admin {
 	 * @since    1.4.0
 	 */
 	public function enqueue_admin_scripts() {
-		if ( is_admin() && isset( $_GET['page'] ) && $_GET['page'] === 'wc-settings' && isset( $_GET['tab'] ) && $_GET['tab'] === 'wdevs_tax_switch' && isset( $_GET['section'] ) && $_GET['section'] === 'shortcode' ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( Wdevs_Tax_Switch_Woocommerce::is_settings_page() && isset( $_GET['section'] ) && 'shortcode' === $_GET['section'] ) {
+			// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 			$woocommerce_admin_handle = $this->plugin_name . '-admin-woocommerce';
 
@@ -128,6 +140,7 @@ class Wdevs_Tax_Switch_Admin {
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_style( 'wdevs-tax-switch-style' );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -144,12 +157,96 @@ class Wdevs_Tax_Switch_Admin {
 	}
 
 	/**
+	 * Hide the WooCommerce rating footer on the Tax Switch settings tab.
+	 *
+	 * @since 1.8.2
+	 */
+	public function hide_woocommerce_footer_text( $display ) {
+		return Wdevs_Tax_Switch_Woocommerce::is_settings_page() ? false : $display;
+	}
+
+	/**
+	 * Change the admin footer text on Tax Switch settings pages.
+	 *
+	 * @see WC_Admin::admin_footer_text()
+	 *
+	 * @since 1.8.2
+	 */
+	public function admin_footer_text( $footer_text ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) || ! Wdevs_Tax_Switch_Woocommerce::is_settings_page() ) {
+			return $footer_text;
+		}
+
+		if ( get_option( 'wdevs_tax_switch_admin_footer_text_rated' ) ) {
+			return '<span id="footer-thankyou">' . esc_html__( 'Thank you for using Tax Switch for WooCommerce.', 'tax-switch-for-woocommerce' ) . '</span>';
+		}
+
+		$footer_text = sprintf(
+			/* translators: 1: Tax Switch for WooCommerce 2: five stars */
+			__( 'If you like %1$s please leave us a %2$s rating. A huge thanks in advance!', 'tax-switch-for-woocommerce' ),
+			sprintf( '<strong>%s</strong>', esc_html__( 'Tax Switch for WooCommerce', 'tax-switch-for-woocommerce' ) ),
+			'<a href="https://wordpress.org/support/plugin/tax-switch-for-woocommerce/reviews/?rate=5#new-post" target="_blank" rel="noopener" class="wdevs-tax-switch-rating-link" aria-label="' . esc_attr__( 'five star', 'tax-switch-for-woocommerce' ) . '" data-rated="' . esc_attr__( 'Thanks :)', 'tax-switch-for-woocommerce' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+		);
+
+		$script = "
+			(function() {
+				'use strict';
+				var ratingLink = document.querySelector('a.wdevs-tax-switch-rating-link');
+				if (!ratingLink) {
+					return;
+				}
+
+				ratingLink.addEventListener('click', function(e) {
+					var formData = new FormData();
+					formData.append('action', '" . esc_js( self::AJAX_ACTION_FOOTER_RATED ) . "');
+					formData.append('nonce', '" . esc_js( wp_create_nonce( self::AJAX_NONCE_ACTION_FOOTER_RATED ) ) . "');
+
+					fetch('" . esc_js( admin_url( 'admin-ajax.php' ) ) . "', {
+						method: 'POST',
+						body: formData,
+						credentials: 'same-origin'
+					});
+
+					if (e.currentTarget.parentElement) {
+						e.currentTarget.parentElement.textContent = e.currentTarget.getAttribute('data-rated');
+					}
+				});
+			})();
+		";
+
+		$handle = 'wdevs-tax-switch-admin-footer-rating';
+		wp_register_script( $handle, '', array(), $this->version, true );
+		wp_enqueue_script( $handle );
+		wp_add_inline_script( $handle, $script );
+
+		return '<span id="footer-thankyou">' . $footer_text . '</span>';
+	}
+
+	/**
+	 * AJAX request for dismissing the rating footer.
+	 *
+	 * @since 1.8.2
+	 */
+	public function wdevs_tax_switch_footer_rated_action() {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), self::AJAX_NONCE_ACTION_FOOTER_RATED ) ) {
+			wp_die( -1 );
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_die( -1 );
+		}
+
+		update_option( 'wdevs_tax_switch_admin_footer_text_rated', 1 );
+		wp_die();
+	}
+
+	/**
 	 * AJAX request
 	 * Render the shortcode by AJAX request
 	 *
 	 * @since 1.5.3
 	 */
-	public function render_by_request_action() {
+	public function wdevs_tax_switch_render_by_request_action() {
 		if ( ! isset( $_POST['nonce'], $_POST['attributes'] ) ) {
 			wp_send_json_error( 'missing_fields' );
 		}
@@ -208,4 +305,5 @@ class Wdevs_Tax_Switch_Admin {
 			)
 		);
 	}
+
 }

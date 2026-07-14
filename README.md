@@ -19,7 +19,7 @@ For more WordPress plugins, check out our products at [Wijnberg Developments](ht
 ## Requirements
 
 - WooCommerce plugin installed and activated
-- WordPress 5.0 or higher (for Gutenberg block support)
+- WordPress 5.3 or higher (for Gutenberg block support)
 - WooCommerce tax calculations enabled:
 	1. Go to WooCommerce > Settings > General
 	2. Check the box for "Enable tax rates and calculations"
@@ -288,6 +288,7 @@ We are monitoring this issue and will update the plugin accordingly when a solut
 After multiple attempts to create compatibility functions, reaching out to the plugin developers several times, and still finding no viable solution, the following plugins remain incompatible:
 
 - Unlimited Elements for Elementor (+ Pro): AJAX pagination and filtering issues
+- Barn2: WooCommerce Product Options
 
 ## Language support
 

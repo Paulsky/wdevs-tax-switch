@@ -108,6 +108,18 @@ class Wdevs_Tax_Switch_Compatibility {
 					'wapf-frontend',
 					'accounting'
 				] );
+				$including_tax_text = $this->get_tax_text( true );
+				$excluding_tax_text = $this->get_alternate_tax_text( true );
+
+				wp_localize_script(
+					$apffw_handle,
+					'wtsCompatibilityObject',
+					[
+						'baseTaxRate'      => $tax_rate,
+						'includingTaxText' => $including_tax_text,
+						'excludingTaxText' => $excluding_tax_text,
+					]
+				);
 			}
 
 			// Woocommerce Quantity Manager
@@ -274,6 +286,10 @@ class Wdevs_Tax_Switch_Compatibility {
 	 * @since 1.4.1
 	 */
 	public function render_wapf_pricing_hint( $original_output, $product, $amount, $type, $field = null, $option = null ) {
+		if ( in_array( $type, [ 'percent', 'p' ], true ) ) {
+			return $original_output;
+		}
+
 		if ( $this->is_in_cart_or_checkout() && ! $this->should_switch_in_mini_cart() ) {
 			return $original_output;
 		}

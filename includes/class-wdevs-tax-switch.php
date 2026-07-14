@@ -186,9 +186,12 @@ class Wdevs_Tax_Switch {
 			$this->loader->add_action( 'enqueue_block_editor_assets', $plugin_admin, 'enqueue_block_editor_assets' );
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_admin_scripts' );
 			$this->loader->add_filter( 'plugin_action_links_' . plugin_basename( dirname( __DIR__ ) . '/' . $this->plugin_name . '.php' ), $plugin_admin, 'add_action_links' );
+			$this->loader->add_filter( 'woocommerce_display_admin_footer_text', $plugin_admin, 'hide_woocommerce_footer_text' );
+			$this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'admin_footer_text', 20 );
 
 			//AJAX Requests
 			$this->loader->add_action( 'wp_ajax_' . Wdevs_Tax_Switch_Admin::AJAX_ACTION_RENDER, $plugin_admin, Wdevs_Tax_Switch_Admin::AJAX_ACTION_RENDER . '_action' );
+			$this->loader->add_action( 'wp_ajax_' . Wdevs_Tax_Switch_Admin::AJAX_ACTION_FOOTER_RATED, $plugin_admin, Wdevs_Tax_Switch_Admin::AJAX_ACTION_FOOTER_RATED . '_action' );
 		}
 	}
 
@@ -237,7 +240,6 @@ class Wdevs_Tax_Switch {
 		if ( is_admin() ) {
 			$this->loader->add_filter( 'woocommerce_settings_tabs_array', $plugin_woocommerce, 'add_settings_tab', 50 );
 			$this->loader->add_action( 'woocommerce_settings_tabs_wdevs_tax_switch', $plugin_woocommerce, 'settings_tab' );
-			$this->loader->add_action( 'woocommerce_after_settings_wdevs_tax_switch', $plugin_woocommerce, 'render_footer_info' );
 		}
 	}
 
@@ -469,7 +471,7 @@ class Wdevs_Tax_Switch {
 		 *
 		 * @link https://wordpress.stackexchange.com/a/237498/178511
 		 */
-		$parts       = parse_url( home_url() );
+		$parts       = wp_parse_url( home_url() );
 		$current_url = $parts['scheme'] . '://' . $parts['host'];
 
 		if ( array_key_exists( 'port', $parts ) ) {
