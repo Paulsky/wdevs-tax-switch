@@ -2,9 +2,9 @@
 Contributors: wijnbergdevelopments
 Tags: woocommerce, tax, vat
 Requires at least: 6.1
-Tested up to: 7.0
-Stable tag: 1.8.2
-Requires PHP: 7.2
+Tested up to: 7.1
+Stable tag: 1.8.3
+Requires PHP: 8.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -290,6 +290,11 @@ The plugin is designed to keep prices consistent in the cart and checkout proces
 
 
 == Changelog ==
+= 1.8.3 =
+* Increased the minimum required PHP version to 8.0
+* Tested WordPress 7.1
+* Tested WooCommerce 11.0.1
+
 = 1.8.2 =
 * Improved compatibility for Advanced Product Fields Extended for WooCommerce
 * Improved `blueprint.json`

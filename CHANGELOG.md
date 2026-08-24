@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to the Tax Switch for WooCommerce plugin will be documented in this file.
 
+## [1.8.3] - 2026-08-22
+### Updated
+- Increased the minimum required PHP version to 8.0
+- Tested WordPress 7.1
+- Tested WooCommerce 11.0.1
+
 ## [1.8.2] - 2026-07-14
 ### Updated
 - Improved compatibility for Advanced Product Fields Extended for WooCommerce

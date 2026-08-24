@@ -18,6 +18,7 @@ For more WordPress plugins, check out our products at [Wijnberg Developments](ht
 
 ## Requirements
 
+- PHP 8.0 or higher
 - WooCommerce plugin installed and activated
 - WordPress 5.3 or higher (for Gutenberg block support)
 - WooCommerce tax calculations enabled:

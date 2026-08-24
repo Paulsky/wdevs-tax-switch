@@ -16,6 +16,10 @@ class TaxSwitchHelper {
 				':scope > .wts-price-excl'
 			);
 
+			if ( ! inclElement || ! exclElement ) {
+				return;
+			}
+
 			if ( displayIncludingTax ) {
 				inclElement.classList.remove( 'wts-inactive' );
 				inclElement.classList.add( 'wts-active' );
